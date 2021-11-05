@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base/templatelogin.xhtml">
+
+    <ui:define name="content">
+      <div class="card">
+          <h:form>
+    <h5>Register</h5>
+     
+    <p:messages id="msgs" showDetail="true" closable="true">
+            <p:autoUpdate/>
+    </p:messages>
+    <style>
+        /* reset on the showcase style*/
+        body .ui-panelgrid .ui-panelgrid-cell {
+            background-color: transparent;
+        }
+
+        /* example use of styles for your form */
+        .my-heading-row {
+            background-color: var(--surface-c);
+            font-weight: bold;
+        }
+    </style>
+ 
+    <!--
+    Note: Rows and columns can have style, styleClass, and id.
+    Note: A column with a defined styleClass will ignore the styleClass specified in the columnClasses list.
+    Note: Note the use of ui-fluid to ensure that components are sized correctly and the use of ui-panelgrid-blank to remove borders.
+    -->
+    
+    <p:panelGrid columns="4" id="grid"
+                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                 layout="grid"
+                 styleClass="ui-panelgrid-blank ui-fluid"
+                 style="border:0px none; background-color:transparent;">
+        
+        
+        
+        
+        
+        
+
+        <p:row styleClass="my-heading-row">
+            Enter Your Details
+        </p:row>
+       
+        
+       <p:outputLabel for="@next" value="Title"/>
+       <p:selectOneMenu id="option" value="#{registration.selectedTitle}">
+                    <f:selectItem itemLabel="Select Title" itemValue=""/>
+                    <f:selectItem itemLabel="Mr" itemValue="Mr"/>
+                    <f:selectItem itemLabel="Mrs" itemValue="Mrs"/>
+                    <f:selectItem itemLabel="Ms" itemValue="Ms"/>
+                    <f:selectItem itemLabel="Miss" itemValue=""/>
+                    <f:selectItem itemLabel="Dr" itemValue="Mr"/>
+                    <f:selectItem itemLabel="Prof" itemValue="Mrs"/>
+                   
+                    
+                    <f:facet name="footer">
+                        <p:divider styleClass="p-mt-0" />
+                        <h:outputText value="3 options" style="font-weight:bold;"/>
+                    </f:facet>
+                </p:selectOneMenu>
+        
+        
+        <p:outputLabel for="@next" value="First Name"/>
+        <p:inputText placeholder="First Name"  value="#{registration.firstName}" />
+
+        <p:outputLabel for="@next" value="Last Name"/>
+        <p:inputText  placeholder="Surname" value="#{registration.lastName}"/>
+
+        <p:outputLabel for="@next" value="Employee Number"/>
+      
+       
+        <p:inputText placeholder="Employee Number" value="#{registration.ecnumber}"/>
+                    
+        
+        <p:outputLabel for="@next" value="Mobile Number"/>
+      
+       
+        <p:inputText placeholder="Mobile number" value="#{registration.mobilenumber}"/>
+                    
+     
+        
+
+        <p:outputLabel for="@next" value="Email"/>
+        <p:inputText placeholder="Email Address" value="#{registration.email}"/>
+
+       
+              <p:outputLabel for="@next" value="Department"/>
+              <p:selectOneMenu id="depart" value="#{registration.departmentid}" >
+                    <f:selectItem itemLabel="Select Department" itemValue=""/>
+                    
+                    <f:selectItems value="#{registration.availableDepartments}" var="department"
+                                   itemLabel="#{department.description}" itemValue="#{department.id}"/> 
+                    
+                   
+                </p:selectOneMenu>
+       
+    </p:panelGrid>
+    <p:panelGrid columns="2"
+                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                 layout="grid"
+                 styleClass="ui-panelgrid-blank ui-fluid"
+                 style="border:0px none; background-color:transparent;">
+
+       
+        <p:row id="my-row-id" styleClass="my-heading-row" style="font-weight: bold">
+            Login Details
+        </p:row>
+
+        <p:outputLabel for="@next" value="User Name"/>
+       
+        <p:inputText placeholder="User Name" value="#{registration.username}"/>
+          <p:outputLabel for="@next" value="Password"/>
+          <p:password id="pwd"   redisplay="true"  match="ConfirmPassword"   value="#{registration.password}" label="Password" required="true"/>
+
+        <p:outputLabel for="@next" value="Confirm Password"/>
+        <p:password id="ConfirmPassword"  label="Confirm Password"  value="#{registration.confirmpassword}" required="true"/>
+
+       
+
+        
+        <p:row>
+            <p:column styleClass="ui-grid-col-12">
+               
+                 <p:commandButton value="Submit" id="btnForm" process="@form"  action="#{registration.save}" styleClass="p-mr-2"/>
+            </p:column>
+        </p:row>
+       
+    </p:panelGrid>
+    </h:form>
+</div>
+           
+        
+    </ui:define>
+
+</ui:composition>

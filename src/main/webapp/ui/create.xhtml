@@ -1,0 +1,140 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/layouts/standard.xhtml"
+>
+
+    <ui:define name="notes">
+        <div class="top-toolbar">
+            <p:staticMessage
+                    severity="info"
+                    summary="Pet - App:" detail="Create Tab: Editable room reservation demo"
+            />
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="container" style="padding-left: 24px;padding-right: 24px">
+            <h:form id="tableform_id" styleClass="ui-widget">
+                <p:panel id="table_panel_id"
+                         header="Users in DB"
+                         style="margin-bottom:10px"
+                >
+                    <p:dataTable id="userstable_id"
+                                 var="userEntities"
+                                 value="#{userView.userEntities}"
+                                 showGridlines="true"
+                                 style="margin-right: .5rem"
+                    >
+                        <p:column id="col_0"
+                                  headerText="#Id"
+                                  sortBy="#{userEntities.id}"
+                        >
+                            <h:outputText value="#{userEntities.id}"/>
+                        </p:column>
+
+                        <p:column id="col_1"
+                                  headerText="First name"
+                                  sortBy="#{userEntities.firstName}"
+                        >
+                            <h:outputText value="#{userEntities.firstName}"/>
+                        </p:column>
+
+                        <p:column id="col_2"
+                                  headerText="Last name"
+                                  sortBy="#{userEntities.lastName}"
+                        >
+                            <h:outputText value="#{userEntities.lastName}"/>
+                        </p:column>
+
+                        <p:column id="col_3"
+                                  headerText="User's name"
+                                  sortBy="#{userEntities.userName}"
+                        >
+                            <h:outputText value="#{userEntities.userName}"/>
+                        </p:column>
+
+                        <p:column id="col_4"
+                                  headerText="eMail"
+                                  sortBy="#{userEntities.EMail}"
+                        >
+                            <h:outputText value="#{userEntities.EMail}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <br/>
+                <p:panel id="panel"
+                         header="Insert new user:"
+                         style="margin-bottom:10px"
+                >
+                    <div id="div_01Gh"
+                         class="form-group"
+                         style="padding-top: 10px"
+                    >
+                        <p:outputLabel id="ot_03jL"
+                                       for="@next"
+                                       value="First name:"
+                        />
+                        <p:inputText id="firstName"
+                                     value="#{userView.userEntity.firstName}"
+                                     placeholder="first name..."
+                                     autocomplete="true"
+                                     required="true"
+                        />
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                        <p:outputLabel id="ot_04jL"
+                                       for="@next"
+                                       value="Last name:"
+                        />
+                        <p:inputText id="lastName"
+                                     value="#{userView.userEntity.lastName}"
+                                     placeholder="last name...."
+                                     autocomplete="true"
+                                     required="true"
+                        />
+                    </div>
+                    <div Id="dv_02hs"
+                         class="form-group"
+                         style="padding-top: 10px"
+                    >
+                        <p:outputLabel id="ot_05jL"
+                                       for="@next"
+                                       value="User's name:"
+                                       style="padding-right: 10px"
+                        />
+                        <p:inputText id="userName"
+                                     value="#{userView.userEntity.userName}"
+                                     placeholder="waldo..."
+                                     autocomplete="true"
+                                     required="true"
+                        />
+                    </div>
+                    <div class="form-group" style="padding-top: 10px">
+                        <p:outputLabel id="ol_07jm"
+                                       for="@next" value="eMail:"
+                                       style="padding-right: 10px"/>
+                        <p:inputText id="eMail"
+                                     value="#{userView.userEntity.EMail}"
+                                     placeholder="waldo123@outlook.com"
+                                     required="true"
+                        />
+                    </div>
+                </p:panel>
+                <br/>
+                <p:commandButton id="save_person_btn_id"
+                                 action="#{userView.savePerson}"
+                                 value="Save"
+                                 title="#{userView.hint}"
+                                 ajax="true"
+                                 update="table_panel_id"
+                                 icon="pi pi-save"
+                                 styleClass="rounded-button ui-button-success ui-button-flat"
+                />
+            </h:form>
+            <p:messages showDetail="true"/>
+        </div>
+    </ui:define>
+</ui:composition>

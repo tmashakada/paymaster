@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base/templatelogin.xhtml">
+
+    <ui:define name="content">
+      <div class="card">
+          <h:form>
+              <center> <h5> <B>Welcome To PayMaster! </B></h5></center>
+    
+    <p:messages id="messages" showDetail="true">
+            <p:autoUpdate/>
+        </p:messages>
+    <style>
+        /* reset on the showcase style*/
+        body .ui-panelgrid .ui-panelgrid-cell {
+            background-color: transparent;
+        }
+
+        /* example use of styles for your form */
+        .my-heading-row {
+            background-color: var(--surface-c);
+            font-weight: bold;
+        }
+    </style>
+ 
+    <!--
+    Note: Rows and columns can have style, styleClass, and id.
+    Note: A column with a defined styleClass will ignore the styleClass specified in the columnClasses list.
+    Note: Note the use of ui-fluid to ensure that components are sized correctly and the use of ui-panelgrid-blank to remove borders.
+    -->
+    
+    <p:panelGrid columns="2"
+                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                 layout="grid"
+                 styleClass="ui-panelgrid-blank ui-fluid"
+                 style="border:0px none; background-color:transparent;">
+        
+        <p:row>
+            <p:column styleClass="ui-grid-col-12">
+                <center>
+                 <p>
+                 
+                 You Have successfully Signed Up
+                </p>
+                 <p>
+                  Please Click Button Below to Login to Sign IN
+                </p>
+             </center>       
+            </p:column>
+        </p:row>
+  
+        
+                  
+
+       
+        
+     
+        
+     
+        <p:row>
+            <center>
+                <p:commandButton update="@form" value="Login" action="/login" style="margin-left: 200px"/>
+            </center>
+        </p:row>
+
+        
+        
+           
+
+    </p:panelGrid>
+    </h:form>
+</div>
+           
+        
+    </ui:define>
+
+</ui:composition>

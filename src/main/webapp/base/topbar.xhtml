@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <a class="menu-button" tabindex="0">
+            <i class="pi pi-bars"></i>
+        </a>
+        <h:link styleClass="logo" outcome="/index">
+            <p:graphicImage name="/images/primefaces-logo2.png"/>
+        </h:link>
+
+        <h:form styleClass="topbar-form">
+            <ul class="topbar-menu">
+                <li>
+                    <h:link outcome="/index">Home</h:link>
+                </li>
+                <li class="topbar-submenu">
+                    <a tabindex="0">Work Done</a>
+                    <ul class="connected-overlay-in">
+                        <li class="topbar-submenu-header">Work Done</li>
+                        <li><h:link outcome="/index"><i class="pi pi-fw pi-file"></i><span>Submit Form</span></h:link></li>
+                        <li><a href="https://www.primefaces.org/designer/primefaces"><i 
+                                    class="pi pi-fw pi-palette"></i><span>View Pending</span></a>
+                        </li>
+                        <li><a href="https://www.primefaces.org/designer-jsf"><i
+                                class="pi pi-fw pi-desktop"></i><span>View Approved</span></a></li>
+                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
+                        </li>
+                        <li class="topbar-submenu-header">NOT Approved</li>
+                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
+                    </ul>
+                </li>
+              
+              
+               
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i><span class="hidden-xs">FurtherMore Mauye</span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="/passChng.xhtml"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                        </li>
+                        <h:form>
+                            <li class="divider"></li>
+                            <li><i class="fa fa-sign-out fa-fw"/><h:commandLink action="#{logoutController.logout()}" value="Logout"></h:commandLink>
+                            </li>
+                        </h:form>
+                    </ul>
+                    </li> 
+            </ul>
+            
+            
+        </h:form>
+    </div>
+</ui:composition>

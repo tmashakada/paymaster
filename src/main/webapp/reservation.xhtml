@@ -1,0 +1,143 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/layouts/standard.xhtml">
+
+
+    <ui:define name="content">
+        <f:view contentType="text/html">
+            <div class="container" style="padding-left: 24px;padding-right: 24px">
+                <h:form id="form_05hQ">
+                    <p:growl id="messages" showDetail="true"/>
+
+                    <p:schedule id="schedule"
+                                value="#{scheduleView.eventModel}"
+                                widgetVar="myschedule"
+                                
+                                displayEventEnd="true"
+                                resizable="true"
+                                draggable="true"
+                                rendered="true"
+                                style="border-radius: 6px;"
+                    >
+                        <p:ajax event="dateSelect"
+                                listener="#{scheduleView.onDateSelect}"
+                                update="eventDetails"
+                                oncomplete="PF('eventDialog').show();"
+                        />
+                        <p:ajax event="dateDblSelect"
+                                listener="#{scheduleView.onDateDblSelect}"
+                                update="eventDetails"
+                                oncomplete="PF('eventDialog').show();"
+                        />
+                        <p:ajax event="eventSelect"
+                                listener="#{scheduleView.onEventSelect}"
+                                update="eventDetails"
+                                oncomplete="PF('eventDialog').show();"
+                        />
+                        <p:ajax event="eventMove"
+                                listener="#{scheduleView.onEventMove}"
+                                update="messages"
+                        />
+                        <p:ajax event="eventResize"
+                                listener="#{scheduleView.onEventResize}"
+                                update="messages"
+                        />
+                    </p:schedule>
+
+                    <p:dialog id="dlg_04mX"
+                              widgetVar="eventDialog"
+                              header="Event Details"
+                              showEffect="clip"
+                              hideEffect="fade"
+                              style="border-radius:4px;background-color: beige"
+                              styleClass="ui-dialog-content"
+                              minimizable="true"
+                              maximizable="true"
+                            
+                    >
+                        <h:panelGrid id="eventDetails" columns="2">
+                            <p:outputLabel id="ol_01dS"
+                                           for="title"
+                                           value="Titles:"
+                            />
+                            <p:inputText id="title"
+                                         value="#{scheduleView.event.title}"
+                                         required="true"
+                                         styleClass="ui-inputtext"
+                                         placeholder="Event name"
+                                         tabindex="1"
+                            >
+                                <f:ajax/>
+                            </p:inputText>
+                            <p:outputLabel id="ol_02Fx"
+                                           for="from"
+                                           value="From:"
+                            />
+                            <p:calendar id="from"
+                                        value="#{scheduleView.event.startDate}"
+                                        pattern="dd.MM.yyyy HH:mm"
+                                        timeInput="true"
+                                        stepMinute="15"
+                                        
+                                        style="border-radius:4px;background-color: beige"
+                            />
+                            <p:outputLabel id="ol_03vf"
+                                           for="to"
+                                           value="To:"
+                            />
+                            <p:calendar id="to"
+                                        value="#{scheduleView.event.endDate}"
+                                        pattern="dd.MM.yyyy HH:mm"
+                                        timeInput="true"
+                                        stepMinute="15"
+                                      
+                                        style="border-radius:4px;background-color: beige"
+                            />
+                            <p:outputLabel id="ol_04MY"
+                                           for="allDay"
+                                           value="Full Day:"
+                            />
+                            <p:selectBooleanCheckbox id="allDay"
+                                                     value="#{scheduleView.event.allDay}"
+                                                     tabindex="4"
+                            />
+                        </h:panelGrid>
+
+                        <div class="p-d-flex p-jc-between p-mt-3">
+                            <p:commandButton id="cancel"
+                                             icon="pi pi-cog"
+                                             value="Cancel"
+                                             action="#{scheduleView.onDateSelect}"
+                                             onclick="PF('eventDialog').update();PF('eventDialog').hide();"
+                                             tabindex="5"
+                                             styleClass="rounded-button ui-button-info ui-button-flat"
+                            />
+                            <p:commandButton id="saveUpdateButton"
+                                             icon="pi pi-save"
+                                             value="Save"
+                                             onclick="PF('eventDialog').update();PF('eventDialog').hide();"
+                                             action="#{scheduleView.addOrUpdateEvent}"
+                                             tabindex="6"
+                                             styleClass="rounded-button ui-button-success ui-button-flat"
+                            />
+                            <p:commandButton id="deleteButton"
+                                             icon="pi pi-minus"
+                                             value="Delete"
+                                             onclick="PF('eventDialog').update();PF('eventDialog').hide();"
+                                             action="#{scheduleView.onEventDelete}"
+                                             tabindex="7"
+                                             styleClass="rounded-button ui-button-danger ui-button-flat"
+                            />
+
+                        </div>
+                    </p:dialog>
+
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+</ui:composition>

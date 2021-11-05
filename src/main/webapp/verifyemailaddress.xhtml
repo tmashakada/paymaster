@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base/templatelogin.xhtml">
+
+    <ui:define name="content">
+             
+             
+               
+           
+        <div class="card" style="margin-top: 20px;margin-right: 20px">
+            <p:panel header="Register" >
+                <h:form>
+                <p class="p-m-0">
+               In order to Register with PayMaster, we need to first verify your email address
+               </p>
+                <div class="ui-fluid">
+                     <h5>Email Address</h5>
+                      <div class="p-col-12 p-md-4">
+                    <div class="ui-inputgroup">
+                    <div class="ui-inputgroup-addon">Email</div>
+                    <p:inputText placeholder="Enter Email address"/>
+                    
+                </div>
+            </div>
+                    <div class="p-field">
+           
+                        <p:commandButton id="regular"   action="/verify" value="Send Code" ajax="false" style="width: 20%;margin-top: 5%"/>
+                         <br/>
+                         <br/>
+                         <h:link outcome="/login" >Already have an account?</h:link>
+                   </div>
+                     
+</div>
+            </h:form>    
+            </p:panel>
+                
+        </div>
+           
+        
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/base/template.xhtml">
+
+    <ui:define name="content">
+        <div class="content-section documentation">
+            <h5>Work Submitted Not Yet Approved For PayMents</h5>
+            <h:form>
+       <div class="card">
+        <h5>Reflow</h5>
+        <p:dataTable var="product" value="#{dtBasicView.products}" reflow="true" rows="5" paginator="true">
+            <p:column headerText="id">
+                <h:outputText value="#{product.code}"/>
+            </p:column>
+
+            <p:column headerText="Submitted By">
+                <h:outputText value="#{product.name}"/>
+            </p:column>
+
+            <p:column headerText="Approved By">
+                <h:outputText value="#{product.category}"/>
+            </p:column>
+
+             <p:column headerText="Description">
+                <h:outputText value="#{product.category}"/>
+            </p:column>
+            <p:column headerText="Total Amount">
+                <h:outputText value="$#{product.price}"/>
+            </p:column>
+        </p:dataTable>
+    </div>
+                
+                
+                
+            </h:form>
+           
+        </div>
+    </ui:define>
+</ui:composition>

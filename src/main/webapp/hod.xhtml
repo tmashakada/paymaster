@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="base/template.xhtml">
+
+    <ui:define name="content">
+        <div class="home">
+            <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">
+                
+
+                <h:link styleClass="action-button" outcome="/getstarted">Submit Form for Work Done</h:link>
+             
+            </div>
+
+          <div class="row">
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="panel panel-primary text-center no-boder bg-color-green">
+                        <div class="panel-body">
+                            <i class="fa fa-bar-chart-o fa-5x"></i>
+                            <h3>8,457</h3>
+                        </div>
+                        <div class="panel-footer back-footer-green">
+                           PAID
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="panel panel-primary text-center no-boder bg-color-blue">
+                        <div class="panel-body">
+                            <i class="glyphicon glyphicon-retweet fa-5x"></i>
+                            <h3>1,160 </h3>
+                        </div>
+                        <div class="panel-footer back-footer-blue">
+                           APPROVED
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="panel panel-primary text-center no-boder bg-color-red">
+                        <div class="panel-body">
+                            <i class="glyphicon glyphicon-user fa-5x"></i>
+                            <center>
+                            <h3><h:dataTable var="pending" value="#{userController.notifationList}">
+                                <h:column>#{pending.inActiveUserCount}</h:column>
+                            </h:dataTable></h3></center>
+                            
+                            <h3>1,160 </h3>
+                        </div>
+                        <div class="panel-footer back-footer-red">
+                            REJECTED
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="panel panel-primary text-center no-boder bg-color-brown">
+                        <div class="panel-body">
+                            <i class="fa fa-users fa-5x"></i>
+                            <center>
+                                <h3><h:dataTable var="active" value="#{userController.activeUserList}">
+                                        <h:column>#{active.activeUser}</h:column>
+                            </h:dataTable></h3></center>
+                               <h3>1,160 </h3>
+                            
+                        </div>
+                        <div class="panel-footer back-footer-brown">
+                           PENDING
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            
+       </div>      
+    </ui:define>
+
+</ui:composition>
