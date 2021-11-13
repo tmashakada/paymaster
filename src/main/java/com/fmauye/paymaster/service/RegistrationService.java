@@ -86,7 +86,7 @@ public class RegistrationService {
     public String confirmToken(String token) {
         Optional<ConfirmationToken> confirmToken = confirmTokenService.getToken(token);
 
-        if (confirmToken.isEmpty()) {
+        if (!confirmToken.isPresent()) {
             throw new IllegalStateException("OPT not found!");
         }
 
