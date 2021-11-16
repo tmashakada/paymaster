@@ -200,16 +200,21 @@ public class Registration implements Serializable{
    
   public String verify() {
        try{
+          
            
-        String response=   registrationService.confirmToken(opt);
-        
-       
+         String response=   registrationService.confirmToken(opt);
+         System.out.println(response);
+         return "/singupsuccess?faces-redirect=true";
         }catch(IllegalStateException ex){
              System.out.println(ex.getMessage());
           FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", ex.getMessage()));
          }
+       
+       
+       
         return null;
+       
   }
      public String  save() {
          try{
@@ -235,7 +240,15 @@ public class Registration implements Serializable{
          request.setDepartmentId(department);
         System.out.println("bb "+departmentid);
         String response=   registrationService.register(request); 
-         return "/singupverification?faces-redirect=true";
+        if(response.equalsIgnoreCase("Success")){
+             return "/singupverification?faces-redirect=true";
+        }else{
+             System.out.println(response);
+          FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", response));
+         
+        }
+        
          
          }catch(IllegalStateException ex){
              System.out.println(ex.getMessage());

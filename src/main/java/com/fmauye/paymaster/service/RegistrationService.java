@@ -12,6 +12,7 @@ import com.fmauye.paymaster.enums.UserRole;
 import com.fmauye.paymaster.model.RegistrationRequest;
 import com.fmauye.paymaster.model.SmsRequest;
 import com.fmauye.paymaster.repository.DepartmentRepository;
+import com.twilio.exception.ApiException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class RegistrationService {
     @Autowired
     private  ConfirmationTokenService confirmTokenService;
     @Autowired
-    private  SmsSenderService smsSender;
+    private  SmsSenderService smsSenderService;
     
      public String register2(RegistrationRequest request) {
          System.out.println("ghhhhhhh");
@@ -70,14 +71,20 @@ public class RegistrationService {
             
             String optForNewUser = usersService.signUpUser(users);
             
-              System.out.println("Register5 ");
-            String msg =  optForNewUser+" "+"is Your verification Code PayMaster";
+            System.out.println("Register5 ");
+            String msg =  optForNewUser+" "+"is Your verification Code for PayMaster";
             SmsRequest  smsRequest=new SmsRequest();
             smsRequest.setMessage(msg);
             smsRequest.setPhoneNumber(request.getMobilenumber());
-            smsSender.sendSms( smsRequest);
-            
-            return optForNewUser;
+            String success;
+            try{
+                success=  smsSenderService.sendSms( smsRequest);
+                  return  success;
+            }catch(ApiException e){
+                success=e.getMessage();
+                return success;
+            }
+          
         
     }
 
@@ -91,7 +98,7 @@ public class RegistrationService {
         }
 
         if (confirmToken.get().getConfirmedAt() != null) {
-            throw new IllegalStateException("Number is already confirmed");
+            throw new IllegalStateException("Account is already confirmed");
         }
 
         LocalDateTime expiresAt = confirmToken.get().getExpiresAt();

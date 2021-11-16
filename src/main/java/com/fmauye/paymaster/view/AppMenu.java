@@ -28,7 +28,7 @@ public class AppMenu {
         menuCategories.add(new MenuCategory("Work Done", generalMenuItems));
          List<MenuItem> generalMenuItems2 = new ArrayList<>();
        
-        generalMenuItems2.add(new MenuItem("View Rejected", "/admin"));
+        generalMenuItems2.add(new MenuItem("View Rejected", "/user/rejected"));
         menuCategories.add(new MenuCategory("Not Approved", generalMenuItems2));
 
         for (MenuCategory category: menuCategories) {

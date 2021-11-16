@@ -37,7 +37,7 @@ public class Users implements Serializable {
     private String email;
     private String password;
     private String ecnumber;
-   
+    private String title;
     @OneToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
@@ -173,6 +173,14 @@ public class Users implements Serializable {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     

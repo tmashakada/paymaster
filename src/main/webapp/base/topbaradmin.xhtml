@@ -7,90 +7,77 @@
         <a class="menu-button" tabindex="0">
             <i class="pi pi-bars"></i>
         </a>
-        <h:link styleClass="logo" outcome="/index">
+        <h:link styleClass="logo" outcome="/admin/admin">
             <p:graphicImage name="/images/primefaces-logo2.png"/>
         </h:link>
 
         <h:form styleClass="topbar-form">
             <ul class="topbar-menu">
                 <li>
-                    <h:link outcome="/admin">Home</h:link>
+                    <h:link outcome="/admin/admin">Home</h:link>
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0">Work Done</a>
                     <ul class="connected-overlay-in">
-                        <li class="topbar-submenu-header">Work Done</li>
-                        <li><h:link outcome="/admin"><i class="pi pi-fw pi-file"></i><span>Submit Form</span></h:link></li>
+                        <li class="topbar-submenu-header">Work Done2</li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-file"></i><span>Submitted  Work</span></h:link></li>
                         <li><a href="https://www.primefaces.org/designer/primefaces"><i 
                                     class="pi pi-fw pi-palette"></i><span>View Pending</span></a>
                         </li>
                         <li><a href="https://www.primefaces.org/designer-jsf"><i
                                 class="pi pi-fw pi-desktop"></i><span>View Approved</span></a></li>
-                        <li><h:link outcome="/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
                         </li>
                         <li class="topbar-submenu-header">NOT Approved</li>
-                        <li><h:link outcome="/admin"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
                     </ul>
                 </li>
-               <li class="topbar-submenu">
+                 <li class="topbar-submenu">
+                    <a tabindex="0">Sms</a>
+                    <ul class="connected-overlay-in">
+                        <li class="topbar-submenu-header">Sms</li>
+                     
+                       
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Sent Sms</span></h:link>
+                        </li>
+                        <li class="topbar-submenu-header">NOT Approved</li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>Send Sms</span></h:link> </li>
+                    </ul>
+                </li>
+                <li class="topbar-submenu">
                     <a tabindex="0">Setup</a>
                     <ul class="connected-overlay-in">
-                        <li class="topbar-submenu-header">Manage User</li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-file"></i><span>Add Roles</span></h:link></li>
-                        <li><a href="https://www.primefaces.org/designer/primefaces"><i 
-                                    class="pi pi-fw pi-palette"></i><span>View Users</span></a>
-                        </li>
-                        <li><a href="https://www.primefaces.org/designer-jsf"><i
-                                class="pi pi-fw pi-desktop"></i><span>View Approved</span></a></li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
-                        </li>
-                        <li class="topbar-submenu-header">NOT Approved</li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
-                    </ul>
-                    <ul class="connected-overlay-in">
-                        <li class="topbar-submenu-header">Manage Departments</li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-file"></i><span>Add Departments</span></h:link></li>
-                        <li><a href="https://www.primefaces.org/designer/primefaces"><i 
-                                    class="pi pi-fw pi-palette"></i><span>View Departments</span></a>
-                        </li>
-                        <li><a href="https://www.primefaces.org/designer-jsf"><i
-                                class="pi pi-fw pi-desktop"></i><span>View Approved</span></a></li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
-                        </li>
-                        <li class="topbar-submenu-header">NOT Approved</li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
-                    </ul>
-                     <ul class="connected-overlay-in">
                         <li class="topbar-submenu-header">Manage Items</li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-file"></i><span>Add Items</span></h:link></li>
-                        <li><a href="https://www.primefaces.org/designer/primefaces"><i 
-                                    class="pi pi-fw pi-palette"></i><span>View Items</span></a>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-file"></i><span>Check Balance</span></h:link></li>
+                       
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Sent Sms</span></h:link>
                         </li>
-                        <li><a href="https://www.primefaces.org/designer-jsf"><i
-                                class="pi pi-fw pi-desktop"></i><span>View Approved</span></a></li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
-                        </li>
-                        <li class="topbar-submenu-header">NOT Approved</li>
-                        <li><h:link outcome="/index"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
+                   <li class="topbar-submenu-header">Manage Users</li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>Modify User</span></h:link> </li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Users</span></h:link> </li>
+                    <li class="topbar-submenu-header">Manage Department</li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>Add Department</span></h:link> </li>
+                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Department</span></h:link> </li>
                     </ul>
                 </li>
+          
               
                
                 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><span class="hidden-xs">FurtherMore Mauye</span><span class="caret"></span>
+                        <i class="fa fa-user fa-fw"></i><span class="hidden-xs">#{loginBean.username}</span><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li><a href="/passChng.xhtml"><i class="fa fa-gear fa-fw"></i> Change Password</a>
                         </li>
-                        <h:form>
+                      
                             <li class="divider"></li>
                             <li><i class="fa fa-sign-out fa-fw"/><h:commandLink action="#{logoutController.logout()}" value="Logout"></h:commandLink>
                             </li>
-                        </h:form>
+                       
                     </ul>
                     </li> 
             </ul>

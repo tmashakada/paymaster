@@ -9,6 +9,7 @@ package com.fmauye.paymaster.service;
 import com.fmauye.paymaster.repository.UsersRepository;
 import com.fmauye.paymaster.entity.ConfirmationToken;
 import com.fmauye.paymaster.entity.Users;
+import com.fmauye.paymaster.exception.UsernameNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
@@ -30,7 +31,47 @@ public class UsersService {
     @Autowired
     private ConfirmationTokenService confirmationTokenService;
 
+    
+    
+    public   Users verifyLogin(String username, String password) throws UsernameNotFoundException {
+        
+       Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
+
+       if (!usersopt.isPresent()) {
+            throw new UsernameNotFoundException ("The User Name you entered is Not Found");
+        }
+
+        if (usersopt.get().getEnabled() ==false) {
+           throw new UsernameNotFoundException ("Your Account is not confirmed");
+        }
+        if (usersopt.get().getLocked() ==true) {
+           throw new UsernameNotFoundException ("Your Account is Locked Plaese Contact The System Admin");
+        }
+       
+        String encodedPassword = encrytPasswordServiceImpl.hashPassword(password);
+        System.out.println("HashedPass "+encodedPassword );
+        System.out.println("DbPass "+usersopt.get().getPassword() );
+        if(!encodedPassword.equals(usersopt.get().getPassword())){
+             throw new UsernameNotFoundException ("The Password that you've entered is incorrect"); 
+        }
+        
+        Users users=usersopt.get();
+        return  users;
+        
+        
+    }
   
+    
+    public Users getUserByUserName(String username) throws UsernameNotFoundException{
+           Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
+
+       if (!usersopt.isPresent()) {
+            throw new UsernameNotFoundException ("The User Name you entered is Not Found");
+        }
+        return usersopt.get();
+       
+       
+    }
       public String signUpUser(Users user) {
        // boolean userExists = usersRepository.findByEmail(user.getEmail()).isPresent();
        System.out.println("Sing up");

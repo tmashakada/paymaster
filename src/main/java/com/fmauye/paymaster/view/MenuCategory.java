@@ -14,6 +14,7 @@ public class MenuCategory implements Serializable {
         this.label = label;
         this.menuItems = menuItems;
     }
+    
 
     public String getLabel() {
         return label;

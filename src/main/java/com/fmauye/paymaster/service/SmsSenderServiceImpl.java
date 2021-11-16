@@ -7,6 +7,7 @@ package com.fmauye.paymaster.service;
 
 import com.fmauye.paymaster.config.TwilioConfiguration;
 import com.fmauye.paymaster.model.SmsRequest;
+import com.twilio.exception.ApiException;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class SmsSenderServiceImpl implements SmsSenderService{
 
 
     @Override
-    public String sendSms(SmsRequest smsRequest) {
+    public String sendSms(SmsRequest smsRequest) throws ApiException{
             PhoneNumber to = new PhoneNumber(smsRequest.getPhoneNumber());
             PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
             String message = smsRequest.getMessage();

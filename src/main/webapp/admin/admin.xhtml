@@ -3,18 +3,18 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="base/templateadmin.xhtml">
+                template="/base/templateadmin.xhtml">
 
     <ui:define name="content">
         <div class="home">
             <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">
                 
 
-                <h:link styleClass="action-button" outcome="/adminpending">View Pending</h:link>
+                <h:link styleClass="action-button" outcome="/admin/adminpending">View Pending</h:link>
                 <p:spacer style="width:20%"></p:spacer>
-                <h:link styleClass="action-button" outcome="/adminapproved">View Approved</h:link>
+                <h:link styleClass="action-button" outcome="/admin/adminapproved">View Approved</h:link>
                 <p:spacer style="width:20%"></p:spacer>
-                <h:link styleClass="action-button" outcome="/adminpaid">View Paid</h:link>
+                <h:link styleClass="action-button" outcome="/admin/adminpaid">View Paid</h:link>
             </div>
 
          <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">

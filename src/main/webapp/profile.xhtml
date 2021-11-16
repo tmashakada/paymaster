@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">  
+
+    <ui:composition template="base/template.xhtml">
+        <ui:define name="content">  
+            <f:metadata>
+                <f:viewParam name="username" value="#{profileView.username}" />
+               <f:event listener="#{profileView.preRenderView}"
+               type="preRenderView" />
+            </f:metadata>
+
+            <!--BEGIN BREADCRUMB PAGE-->
+            <div>
+                <ul class="breadcrumb breadcrumb_style">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <!--END BREADCRUMB PAGE-->
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading ">
+
+                           Profile Details
+                        </div>
+                        <div class="panel-body pan">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div id="generalTabContent" class="tab-content">
+                                        <div id="tab-edit" class="tab-pane fade in active">
+
+                                            <h:form id="chng_pass_admn_form" class="form-horizontal">
+                                                
+                                                
+
+                                                <h4> </h4>
+                                                <p:messages id="messages" showDetail="true" closable="true" />
+                                                <div class="form-group"><label class="col-sm-3 control-label">Title</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.title}"  class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">First Name</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.firstname}" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">Surname</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.surname}"  class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">DepartMent</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.department}" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">User Role</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.userrole}"  class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">User Name</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.username}" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">Mobile Number</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.mobilenumber}"  class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                               
+
+                                                
+                                                <hr/>
+                                                <center>
+                                                    <p:commandButton update="chng_pass_admn_form" actionListener="#{adminController.adminPasswordChange()}" value="Change Password"></p:commandButton> 
+                                                </center>
+                                            </h:form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+        </ui:define>
+    </ui:composition>        
+
+</html>  
+
+

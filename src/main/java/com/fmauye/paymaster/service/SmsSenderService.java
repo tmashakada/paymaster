@@ -6,11 +6,12 @@
 package com.fmauye.paymaster.service;
 
 import com.fmauye.paymaster.model.SmsRequest;
+import com.twilio.exception.ApiException;
 
 /**
  *
  * @author "Tafadzwa"
  */
 public interface SmsSenderService {
-  String sendSms(SmsRequest smsRequest);
+  String sendSms(SmsRequest smsRequest)throws ApiException ;
 }

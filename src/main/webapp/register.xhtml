@@ -117,7 +117,7 @@
        
         <p:inputText placeholder="User Name" value="#{registration.username}"/>
           <p:outputLabel for="@next" value="Password"/>
-          <p:password id="pwd"   redisplay="true"  match="ConfirmPassword"   value="#{registration.password}" label="Password" required="true"/>
+          <p:password id="pwd"   redisplay="true"  match="ConfirmPassword"   value="#{registration.password}" label="Password" required="true"   requiredMessage="This field is required."/>
 
         <p:outputLabel for="@next" value="Confirm Password"/>
         <p:password id="ConfirmPassword"  label="Confirm Password"  value="#{registration.confirmpassword}" required="true"/>

@@ -22,13 +22,13 @@ public class AppMenuAdmin {
 
         List<MenuItem> generalMenuItems= new ArrayList<>();
        
-        generalMenuItems.add(new MenuItem("View Pending", "/setup"));
-        generalMenuItems.add(new MenuItem("View Approved", "/setup"));
-        generalMenuItems.add(new MenuItem("View PAID", "/setup"));
+        generalMenuItems.add(new MenuItem("View Pending", "/admin/setup"));
+        generalMenuItems.add(new MenuItem("View Approved", "/admin/setup"));
+        generalMenuItems.add(new MenuItem("View PAID", "/admin/setup"));
         menuCategories.add(new MenuCategory("Work Submited", generalMenuItems));
          List<MenuItem> generalMenuItems2 = new ArrayList<>();
        
-        generalMenuItems2.add(new MenuItem("View Rejected", "/admin"));
+        generalMenuItems2.add(new MenuItem("View Rejected", "/admin/admin"));
         menuCategories.add(new MenuCategory("Work Not Approved", generalMenuItems2));
 
         for (MenuCategory category: menuCategories) {

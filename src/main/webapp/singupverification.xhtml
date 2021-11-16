@@ -54,8 +54,8 @@
         <p:row>
             <center>
             <p:column styleClass="ui-grid-col-12">
-            <p:outputLabel for="@next" value="Enter Code" />
-            <p:inputText placeholder="Enter Code" />
+            <p:outputLabel for="@next" value="Enter Code"  />
+            <p:inputText placeholder="Enter Code" value="#{registration.opt}" />
             </p:column>
                 </center>
         </p:row>
@@ -68,7 +68,7 @@
      
         <p:row>
             <center>
-                <p:commandButton update="@form" value="Submit" action="/singupsuccess"/>
+                <p:commandButton update="@form" value="Submit" action="#{registration.verify()}" />
             </center>
         </p:row>
 

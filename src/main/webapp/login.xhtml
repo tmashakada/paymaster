@@ -21,13 +21,16 @@
                              <div class="text-900 text-3xl font-medium mb-3">Welcome To PayMaster</div> 
                              
                  </div>
-
+                      <h:form>
+                          <p:messages id="msgs" showDetail="true" closable="true">
+                                       <p:autoUpdate/>
+                          </p:messages>
                <div>
             <label for="email1" class="block text-900 font-medium mb-2">User Name</label>
-            <p:inputText id="email1" styleClass="w-full mb-3"/>
+            <p:inputText id="email1" styleClass="w-full mb-3" value="#{loginBean.username}"  required="true"   requiredMessage="User Name is required."/>
 
             <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-            <p:inputText id="password1" type="password" styleClass="w-full mb-3"/>
+            <p:inputText id="password1" type="password" styleClass="w-full mb-3"  value="#{loginBean.password}" required="true" requiredMessage="Password is required."/>
 
             <div class="flex align-items-center justify-content-between mb-6">
                 <div class="flex align-items-center">
@@ -42,8 +45,9 @@
                             <span class="text-600 font-medium line-height-3">Don't have an account?</span>
                              <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"> <h:link outcome="/register">Register New Account!</h:link></a>
                             
-                             <p:commandButton type="button" value="Sign In"  style="margin-top: 60px" icon="pi pi-user" styleClass="w-full"/>
+                             <p:commandButton  update="@form" value="Sign In"  style="margin-top: 60px"   action="#{loginBean.checkLogin()}"  icon="pi pi-user" styleClass="w-full"/>
            </div>
+                          </h:form>
          </div>
       </div>
                     
