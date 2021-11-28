@@ -27,7 +27,7 @@ public class SmsSent implements Serializable{
 
    
     @Column(nullable = false,name="created_at")
-     private LocalDateTime createdAt;
+    private LocalDateTime createdAt;
     @Column(nullable = false)
     private String message;
 

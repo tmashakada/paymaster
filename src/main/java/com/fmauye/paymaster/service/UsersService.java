@@ -10,10 +10,14 @@ import com.fmauye.paymaster.repository.UsersRepository;
 import com.fmauye.paymaster.entity.ConfirmationToken;
 import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.exception.UsernameNotFoundException;
+import com.fmauye.paymaster.model.SmsRequest;
+import com.twilio.exception.ApiException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UsersService {
+     private static final Logger LOGGER = LoggerFactory.getLogger(UsersService.class);
     @Autowired
     private UsersRepository usersRepository;
     @Autowired 
@@ -30,15 +35,21 @@ public class UsersService {
 
     @Autowired
     private ConfirmationTokenService confirmationTokenService;
+    
+    @Autowired
+    SmsSenderService  smsSenderService;
+    
+    @Autowired
+    GenerateOpt  generateOpt;
 
     
     
     public   Users verifyLogin(String username, String password) throws UsernameNotFoundException {
         
        Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
-
+          LOGGER.info("Veify User {}", usersopt.get().getDepartment());
        if (!usersopt.isPresent()) {
-            throw new UsernameNotFoundException ("The User Name you entered is Not Found");
+            throw new UsernameNotFoundException ("The UserName you entered is Not Found");
         }
 
         if (usersopt.get().getEnabled() ==false) {
@@ -47,7 +58,7 @@ public class UsersService {
         if (usersopt.get().getLocked() ==true) {
            throw new UsernameNotFoundException ("Your Account is Locked Plaese Contact The System Admin");
         }
-       
+             LOGGER.info("Veify User {}", "Here2");
         String encodedPassword = encrytPasswordServiceImpl.hashPassword(password);
         System.out.println("HashedPass "+encodedPassword );
         System.out.println("DbPass "+usersopt.get().getPassword() );
@@ -72,7 +83,39 @@ public class UsersService {
        
        
     }
-      public String signUpUser(Users user) {
+     
+    public String resendOpt(String username)throws UsernameNotFoundException {
+         Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
+
+       if (!usersopt.isPresent()) {
+            throw new UsernameNotFoundException ("The UserName is Not Found "+" "+username);
+        }
+        
+        
+         Users user= usersopt.get();
+         String  opt=  generateOpt.generateToken();
+         saveConfirmationToken(user, opt);
+         String msg =  opt+" "+"is Your verification Code from PayMaster";
+         String result=  sentOpt(msg, user.getMobileNumber());
+         return result;
+
+        
+    }
+    private String sentOpt(String msg,String mobilenumber){
+         SmsRequest  smsRequest=new SmsRequest();
+            smsRequest.setMessage(msg);
+            smsRequest.setPhoneNumber(mobilenumber);
+            String success;
+            try{
+                success=  smsSenderService.sendSms( smsRequest);
+                  return  success;
+            }catch(ApiException e){
+                success=e.getMessage();
+                return success;
+            }
+    }
+    
+    public String signUpUser(Users user) {
        // boolean userExists = usersRepository.findByEmail(user.getEmail()).isPresent();
        System.out.println("Sing up");
       Optional<Users> usersopt= usersRepository.findByEmail(user.getEmail());
@@ -83,9 +126,7 @@ public class UsersService {
             Boolean isEnabled = appUserPrevious.getEnabled();
 
             if (!isEnabled) {
-                 Random random = new Random();
-                 int otp = 100000 + random.nextInt(900000);
-                String optstr=String.valueOf(otp);
+                 String optstr=generateOpt.generateToken();
 
                 //A method to save user and token in this class
                 saveConfirmationToken(appUserPrevious, optstr);
@@ -105,10 +146,8 @@ public class UsersService {
 
         //Creating a token from UUID
         //String token = UUID.randomUUID().toString();
-          Random random = new Random();
-         int otp = 100000 + random.nextInt(900000);
-         String optstr=String.valueOf(otp);
-
+         
+       String optstr=generateOpt.generateToken();
         //Getting the confirmation token and then saving it
         saveConfirmationToken(user, optstr);
 
@@ -116,9 +155,9 @@ public class UsersService {
         //Returning token
         return optstr;
     }
-    
+   
 //ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, LocalDateTime confirmedAt, Users users) 
-    private void saveConfirmationToken(Users appUser, String token) {
+    public void saveConfirmationToken(Users appUser, String token) {
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(5), appUser);
         confirmationTokenService.saveConfirmationToken(confirmationToken);
@@ -127,5 +166,16 @@ public class UsersService {
     public int enableAppUser(String email) {
         return usersRepository.enableAppUser(email);
 
+    }
+   public void expireConfirmationToken(Users appUser) throws UsernameNotFoundException{
+  
+       //  String token=confirmationTokenService.getTokenByUser(appUser);
+       String  token="No Token";
+         if(token.equalsIgnoreCase("No Token")){
+             
+         }else{
+               confirmationTokenService.setConfirmedAt(token);
+         }
+       
     }
 }

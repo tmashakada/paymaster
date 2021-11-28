@@ -7,6 +7,7 @@ package com.fmauye.paymaster.service;
 
 import com.fmauye.paymaster.repository.ConfirmationTokenRepository;
 import com.fmauye.paymaster.entity.ConfirmationToken;
+import com.fmauye.paymaster.entity.Users;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,25 @@ public class ConfirmationTokenService {
      
       public void saveConfirmationToken(ConfirmationToken token) {
         confirmationTokenRepository.save(token);
-    }
-
-    public Optional<ConfirmationToken> getToken(String token) {
+     }
+     public void expireConfirmationToken(ConfirmationToken token) {
+        confirmationTokenRepository.save(token);
+     }
+     public Optional<ConfirmationToken> getToken(String token) {
         return confirmationTokenRepository.findByToken(token);
+     }
+     public String  getTokenByUser(Users  user) {
+         String  token;
+         Optional<ConfirmationToken> confirmationOpt= confirmationTokenRepository.findByUsers(user);
+            if(confirmationOpt.isPresent()){
+               token=confirmationOpt.get().getToken();
+           }else{
+               token="No Token";
+           }
+        return  token;
+        
     }
-
+    
     public int setConfirmedAt(String token) {
         return confirmationTokenRepository.updateConfirmedAt(token, LocalDateTime.now());
     }

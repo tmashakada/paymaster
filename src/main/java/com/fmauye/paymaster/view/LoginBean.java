@@ -51,10 +51,11 @@ public class LoginBean implements Serializable{
     
     public String checkLogin() throws UsernameNotFoundException{
         System.out.println("Login");
+         FacesContext context = FacesContext.getCurrentInstance();
       try { 
-             FacesContext context = FacesContext.getCurrentInstance();
-         Users  user =usersService.verifyLogin(username, password);
-        String userRole=user.getUserRole().toString();
+            
+             Users  user =usersService.verifyLogin(username, password);
+             String userRole=user.getUserRole().toString();
         
         if(userRole.equalsIgnoreCase(UserRole.ADMIN.name())){
              context.getExternalContext().getSessionMap().put("user_name", username);
@@ -71,8 +72,14 @@ public class LoginBean implements Serializable{
         
         
       }catch(UsernameNotFoundException e){
+          
+         if(e.getMessage().equalsIgnoreCase("Your Account is not confirmed")) {
+             context.getExternalContext().getSessionMap().put("user_name", username);
+               return "/accountnotconfirment?faces-redirect=true";
+         }else{
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", e.getMessage()));
+         }
       } 
          return null;
     }

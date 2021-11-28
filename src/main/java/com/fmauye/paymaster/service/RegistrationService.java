@@ -9,6 +9,7 @@ import com.fmauye.paymaster.entity.ConfirmationToken;
 import com.fmauye.paymaster.entity.Department;
 import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.enums.UserRole;
+import com.fmauye.paymaster.exception.UsernameNotFoundException;
 import com.fmauye.paymaster.model.RegistrationRequest;
 import com.fmauye.paymaster.model.SmsRequest;
 import com.fmauye.paymaster.repository.DepartmentRepository;
@@ -37,11 +38,14 @@ public class RegistrationService {
     private  ConfirmationTokenService confirmTokenService;
     @Autowired
     private  SmsSenderService smsSenderService;
+    @Autowired
+    GenerateOpt   generateOpt;
     
      public String register2(RegistrationRequest request) {
          System.out.println("ghhhhhhh");
         return "Success"; 
      }
+     
      
      public String register(RegistrationRequest request) {
          System.out.println("Register1 ");
@@ -72,10 +76,17 @@ public class RegistrationService {
             String optForNewUser = usersService.signUpUser(users);
             
             System.out.println("Register5 ");
-            String msg =  optForNewUser+" "+"is Your verification Code for PayMaster";
-            SmsRequest  smsRequest=new SmsRequest();
+            String msg =  optForNewUser+" "+"is Your verification Code from PayMaster";
+          String result= sentOpt(msg,request.getMobilenumber());
+        return result;
+          
+        
+    }
+
+    private String sentOpt(String msg,String mobilenumber){
+         SmsRequest  smsRequest=new SmsRequest();
             smsRequest.setMessage(msg);
-            smsRequest.setPhoneNumber(request.getMobilenumber());
+            smsRequest.setPhoneNumber(mobilenumber);
             String success;
             try{
                 success=  smsSenderService.sendSms( smsRequest);
@@ -84,11 +95,7 @@ public class RegistrationService {
                 success=e.getMessage();
                 return success;
             }
-          
-        
     }
-
-
     @Transactional
     public String confirmToken(String token) {
         Optional<ConfirmationToken> confirmToken = confirmTokenService.getToken(token);

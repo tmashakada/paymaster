@@ -12,11 +12,20 @@ package com.fmauye.paymaster.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Configuration
 @ConfigurationProperties("twilio")
 public class TwilioConfiguration {
-
+        private final static Logger LOGGER = LoggerFactory.getLogger(TwilioConfiguration.class);
+     final String secretKey = "kukue";
+     @Autowired
+     TwilioAccountEncrypt twilioAccountEncrypt;
+    
+    
     private String accountSid;
     private String authToken;
     private String trialNumber;
@@ -26,7 +35,13 @@ public class TwilioConfiguration {
     }
 
     public String getAccountSid() {
-        return accountSid;
+          LOGGER.info("Twilio initialized start ... with account sid {} ",  accountSid);
+           String accountSidEn= twilioAccountEncrypt.decrypt(accountSid, secretKey);
+          LOGGER.info("Twilio initialized start ... with account sid {} ",  accountSidEn);
+           return  accountSidEn;
+        
+        //return   twilioAccountEncrypt.decrypt(accountSid, secretKey);
+        
     }
 
     public void setAccountSid(String accountSid) {
@@ -34,7 +49,11 @@ public class TwilioConfiguration {
     }
 
     public String getAuthToken() {
-        return authToken;
+       // return twilioAccountEncrypt.decrypt(authToken, secretKey);
+       LOGGER.info("Twilio initialized start ... with account auth {} ", authToken);
+       String authTokenEn= twilioAccountEncrypt.decrypt(authToken, secretKey);
+        LOGGER.info("Twilio initialized start ... with account auth {} ", authTokenEn);
+        return authTokenEn;
     }
 
     public void setAuthToken(String authToken) {

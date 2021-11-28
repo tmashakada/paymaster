@@ -6,10 +6,12 @@
 package com.fmauye.paymaster.view;
 
 import com.fmauye.paymaster.entity.Department;
+import com.fmauye.paymaster.exception.UsernameNotFoundException;
 import com.fmauye.paymaster.service.RegistrationService;
 import com.fmauye.paymaster.model.RegistrationRequest;
 import com.fmauye.paymaster.service.DepartmentServiceImpl;
 import com.fmauye.paymaster.service.EmailValidator;
+import com.fmauye.paymaster.service.UsersService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +54,11 @@ public class Registration implements Serializable{
     
      @Autowired
      DepartmentServiceImpl departmentServiceImpl;
-      @Autowired
-      EmailValidator  emailValidator;
+     @Autowired
+     EmailValidator  emailValidator;
+     @Autowired
+     UsersService usersService;
+     
     @PostConstruct
     public void init() {
          availableDepartments = new ArrayList<>();
@@ -197,7 +202,52 @@ public class Registration implements Serializable{
         this.opt = opt;
     }
 
-   
+    public String resent() {
+        
+       
+        return null;
+       
+    }
+    
+    
+    public String   resend() {
+        try{
+             FacesContext context = FacesContext.getCurrentInstance();
+              System.out.println("nnnnn");
+            String  useNamestr = context.getExternalContext().getSessionMap().get("user_name").toString();
+             System.out.println("mmmmm");
+            if (useNamestr!=null){
+            System.out.println("User Name "+useNamestr);
+            
+            String response=   usersService.resendOpt(useNamestr);
+            System.out.println(response);
+            if(response.equalsIgnoreCase("Success")){
+                 addMessage(FacesMessage.SEVERITY_INFO, "Info Message", "Opt Number successful Sent To Your Mobile");
+            }else{
+                 addMessage(FacesMessage.SEVERITY_ERROR, "ERROR Message", response);
+            }
+            }else{
+               addMessage(FacesMessage.SEVERITY_ERROR, "ERROR Message", "UserName Is Null");
+            }  
+          
+           // return "/resend?faces-redirect=true";
+          }catch(UsernameNotFoundException ex){
+                  System.out.println(ex.getMessage());
+           FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", ex.getMessage()));
+          }catch(IllegalStateException ex){
+               FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", ex.getMessage()));
+          }catch(NullPointerException ex){
+               System.out.println("Error ");
+                addMessage(FacesMessage.SEVERITY_ERROR, "ERROR Message", "UserName Is Null");
+          }
+        return null;
+    }
+     public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(severity, summary, detail));
+    }
   public String verify() {
        try{
           
@@ -225,7 +275,7 @@ public class Registration implements Serializable{
          request.setFirstName(firstName);
          request.setLastName(lastName);
           String validNumber=  emailValidator.validaNumber(mobilenumber);
-         validNumber="+27"+validNumber;
+         validNumber="+263"+validNumber;
          request.setMobilenumber(validNumber);
          request.setPassword(password);
          request.setUsername(username);
