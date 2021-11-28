@@ -9,6 +9,7 @@ package com.fmauye.paymaster.exception;
  *
  * @author "Tafadzwa"
  */
+
 public class UsernameNotFoundException extends Exception{
 
     public UsernameNotFoundException() {

@@ -62,7 +62,10 @@ public class Registration implements Serializable{
     @PostConstruct
     public void init() {
          availableDepartments = new ArrayList<>();
-       availableDepartments= departmentServiceImpl.getAllDepartments();
+         availableDepartments= departmentServiceImpl.getAllDepartments();
+        for(Department department:availableDepartments){
+            System.out.println("Department "+department.getDescription());
+        }
     }
 
     public String getFirstName() {
@@ -202,6 +205,7 @@ public class Registration implements Serializable{
         this.opt = opt;
     }
 
+    
     public String resent() {
         
        
