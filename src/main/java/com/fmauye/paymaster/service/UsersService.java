@@ -6,13 +6,17 @@
 package com.fmauye.paymaster.service;
 
 
+import com.fmauye.paymaster.dto.UserDto;
 import com.fmauye.paymaster.repository.UsersRepository;
 import com.fmauye.paymaster.entity.ConfirmationToken;
 import com.fmauye.paymaster.entity.Users;
+import com.fmauye.paymaster.enums.UserRole;
+import com.fmauye.paymaster.exception.ResourceNotFoundException;
 import com.fmauye.paymaster.exception.UsernameNotFoundException;
 import com.fmauye.paymaster.model.SmsRequest;
 import com.twilio.exception.ApiException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -35,6 +39,7 @@ public class UsersService {
 
     @Autowired
     private ConfirmationTokenService confirmationTokenService;
+    
     
     @Autowired
     SmsSenderService  smsSenderService;
@@ -74,32 +79,60 @@ public class UsersService {
   
     
     public Users getUserByUserName(String username) throws UsernameNotFoundException{
-           Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
+          return  usersRepository.findByUserNameIgnoreCase(username)
+                  .orElseThrow(() -> new UsernameNotFoundException ("Username Not Found with Name "+username));
 
-       if (!usersopt.isPresent()) {
-            throw new UsernameNotFoundException ("The User Name you entered is Not Found");
-        }
-        return usersopt.get();
+     
        
        
     }
      
     public String resendOpt(String username)throws UsernameNotFoundException {
-         Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
-
-       if (!usersopt.isPresent()) {
-            throw new UsernameNotFoundException ("The UserName is Not Found "+" "+username);
-        }
+     
+        Users existingUser=this.usersRepository.findByUserNameIgnoreCase(username)
+                 .orElseThrow(() ->  new UsernameNotFoundException ("The UserName is Not Found "+" "+username));
         
-        
-         Users user= usersopt.get();
+      
          String  opt=  generateOpt.generateToken();
-         saveConfirmationToken(user, opt);
+         saveConfirmationToken( existingUser, opt);
          String msg =  opt+" "+"is Your verification Code from PayMaster";
-         String result=  sentOpt(msg, user.getMobileNumber());
+         String result=  sentOpt(msg,  existingUser.getMobileNumber());
          return result;
 
         
+    }
+    public List<Users> getALlUsers(){
+        
+        return  usersRepository.findAll();
+        
+        
+        
+    }
+    
+    public Users getUsersById(Long userId) {
+        
+        return this.usersRepository.findById(userId)
+                .orElseThrow(() -> new  ResourceNotFoundException ("User Not Found with "+userId));
+    		 
+        
+    }
+    
+     public Users getUsersByUserName(String username) {
+        
+        return this.usersRepository.findByUserNameIgnoreCase(username)
+                .orElseThrow(() -> new  ResourceNotFoundException ("User Not Found with "+username));
+    		 
+        
+    }
+    public Users updateUsers(UserDto userdto) {
+        Users existingUser=this.usersRepository.findByUserNameIgnoreCase(userdto.getUsername())
+                .orElseThrow(() -> new  ResourceNotFoundException ("User Not Found with "+userdto.getUsername()));
+    	UserRole usersrole=UserRole.valueOf(userdto.getUserrole().toUpperCase());
+    	existingUser.setUserRole(usersrole);
+    
+    
+    	
+    	return this.usersRepository.save(existingUser);
     }
     private String sentOpt(String msg,String mobilenumber){
          SmsRequest  smsRequest=new SmsRequest();

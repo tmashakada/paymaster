@@ -18,10 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author "Tafadzwa"
  */
 @Repository
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 public interface UsersRepository extends JpaRepository<Users, Long> {
     Optional<Users> findByEmail(String email);
-      Optional<Users> findByUserNameIgnoreCase(String username);
+    Optional<Users> findByUserNameIgnoreCase(String username);
     @Transactional
     @Modifying
     @Query("UPDATE Users u SET u.enabled=true WHERE u.email=?1")

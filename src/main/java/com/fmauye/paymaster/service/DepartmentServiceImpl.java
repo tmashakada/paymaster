@@ -6,8 +6,11 @@
 package com.fmauye.paymaster.service;
 
 import com.fmauye.paymaster.entity.Department;
+import com.fmauye.paymaster.exception.ResourceNotFoundException;
 import com.fmauye.paymaster.repository.DepartmentRepository;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +33,40 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public String createDepartment(Department department) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Department createDepartment(Department department)throws ResourceNotFoundException {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Optional<Department> departmentOpt=departmentRepository.findDepartmentByDescriptionIgnoreCase(department.getDescription());
+       if(departmentOpt.isPresent())
+          throw new ResourceNotFoundException("Department Already Created  "+department.getDescription()) ;
+       
+       department.setCreatedAt(LocalDateTime.now());
+       return this. departmentRepository.save(department);
+    }
+
+    @Override
+    public Department getDepartmentById(Long id) {
+        
+        return this. departmentRepository.findById(id)
+    		   .orElseThrow(() -> new ResourceNotFoundException("Department Not Found with "+id));
+    }
+
+    @Override
+    public Department getDepartmentByName(String name) {
+      return this.departmentRepository.findDepartmentByDescriptionIgnoreCase(name)
+              .orElseThrow(() -> new ResourceNotFoundException("Department Not Found with Name "+name));
+    		   
+    }
+
+    @Override
+    public Department updateDepartment(Department department, Long id) {
+       Department existingDepartment=this.departmentRepository.findById(id)
+     		   .orElseThrow(() -> new ResourceNotFoundException("Department Not Found with "+id));
+    	
+    	existingDepartment.setCreatedAt(LocalDateTime.now());
+    	existingDepartment.setDescription(existingDepartment.getDescription());
+    
+    	
+    	return this.departmentRepository.save(existingDepartment);
     }
     
 }

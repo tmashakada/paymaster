@@ -278,8 +278,8 @@ public class Registration implements Serializable{
          request.setEmail(email);
          request.setFirstName(firstName);
          request.setLastName(lastName);
-          String validNumber=  emailValidator.validaNumber(mobilenumber);
-         validNumber="+263"+validNumber;
+         String validNumber=  emailValidator.validaNumber(mobilenumber);
+         validNumber="+27"+validNumber;
          request.setMobilenumber(validNumber);
          request.setPassword(password);
          request.setUsername(username);
