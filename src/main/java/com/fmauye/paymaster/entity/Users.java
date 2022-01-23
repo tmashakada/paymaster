@@ -25,6 +25,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Users implements Serializable {
    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

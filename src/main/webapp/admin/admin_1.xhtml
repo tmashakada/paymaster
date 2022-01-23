@@ -3,11 +3,15 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/templates/admin/main.xhtml">
+                template="/base/templateadmin.xhtml">
 
     <ui:define name="content">
-        
-           
+         <ui:define name="content">  
+            <f:metadata>
+                <f:viewParam name="username" value="#{profileView.username}" />
+               <f:event listener="#{profileView.preRenderView}"
+               type="preRenderView" />
+            </f:metadata>
 
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
@@ -28,7 +32,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading ">
 
-                           Create Item Details
+                         Create   Items Details
                         </div>
                         <div class="panel-body pan">
                             <div class="row">
@@ -47,7 +51,7 @@
                                                         <div class="row">
                                                             <div class="col-xs-9">
                                                                 
-                                                                <h:inputText value="#{itemView.itemdescription}" class="form-control" required="true" requiredMessage="Description is required." />
+                                                                 <h:inputText value="#{itemView.firstname}" class="form-control" />
                                                                 
                                                             </div>
                                                         </div>
@@ -57,9 +61,19 @@
                                                 <div class="form-group"><label class="col-sm-3 control-label">Unit Amount</label>
                                                     <div class="col-sm-9 controls">
                                                         <div class="row">
+                                                            <div class="col-xs-9">
+                                                                
+                                                                <p:inputNumber id="itemamount" value="#{itemView.amount}" modifyValueOnWheel="false" class="form-control"  />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">Qty</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
                                                             <div class="col-xs-4">
-                                                                <h:inputText value="#{itemView.amount}" class="form-control"/> 
-                                                               
+                                                                <h:inputText value="#{profileView.surname}"  class="form-control" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,15 +81,12 @@
 
                                                 
 
-                                                
-
                                                
-                                                
 
                                                 
                                                 <hr/>
                                                 <center>
-                                                    <p:commandButton update="chng_pass_admn_form" actionListener="#{itemView.save()}" value="Create New Item"></p:commandButton> 
+                                                    <p:commandButton update="chng_pass_admn_form" actionListener="#{adminController.adminPasswordChange()}" value="Save"></p:commandButton> 
                                                 </center>
                                             </h:form>
                                         </div>
@@ -92,7 +103,7 @@
                 <!-- /.col-lg-12 -->
             </div>
 
-          
+        </ui:define>     
     </ui:define>
 
 </ui:composition>

@@ -1,13 +1,13 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/templates/admin/main.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">  
 
-    <ui:define name="content">
-        
-           
+    <ui:composition template="/base/templateadmin.xhtml">
+        <ui:define name="content">  
 
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
@@ -16,7 +16,7 @@
                         <a href="#">Home</a>
                     </li>
                     <li>
-                        <a href="#">Items</a>
+                        <a href="#">Change Password</a>
                     </li>
                 </ul>
             </div>
@@ -28,7 +28,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading ">
 
-                           Create Item Details
+                            Change Password 
                         </div>
                         <div class="panel-body pan">
                             <div class="row">
@@ -37,45 +37,44 @@
                                         <div id="tab-edit" class="tab-pane fade in active">
 
                                             <h:form id="chng_pass_admn_form" class="form-horizontal">
-                                                
-                                                
 
                                                 <h4> </h4>
                                                 <p:messages id="messages" showDetail="true" closable="true" />
-                                                <div class="form-group"><label class="col-sm-3 control-label">Item Description</label>
+                                                <div class="form-group"><label class="col-sm-3 control-label">Old Password</label>
                                                     <div class="col-sm-9 controls">
                                                         <div class="row">
                                                             <div class="col-xs-9">
-                                                                
-                                                                <h:inputText value="#{itemView.itemdescription}" class="form-control" required="true" requiredMessage="Description is required." />
-                                                                
+                                                                <h:inputSecret value="#{adminController.oldPassword}" r:placeholder="Old Password" class="form-control" required="true" requiredMessage="Please Enter Old Password."/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group"><label class="col-sm-3 control-label">Unit Amount</label>
+                                                <div class="form-group"><label class="col-sm-3 control-label">New Password</label>
                                                     <div class="col-sm-9 controls">
                                                         <div class="row">
-                                                            <div class="col-xs-4">
-                                                                <h:inputText value="#{itemView.amount}" class="form-control"/> 
-                                                               
+                                                            <div class="col-xs-9">
+                                                                <h:inputSecret value="#{adminController.newPassword}" r:placeholder="New Password" class="form-control" required="true" requiredMessage="Please Enter New Password."/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                 
+                                                <div class="form-group"><label class="col-sm-3 control-label">Confirm Password</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputSecret value="#{adminController.newPassword}" r:placeholder="Confirm Password" class="form-control" required="true" requiredMessage="Please Enter New Password."/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
                                                 
-
                                                 
-
-                                               
-                                                
-
                                                 
                                                 <hr/>
                                                 <center>
-                                                    <p:commandButton update="chng_pass_admn_form" actionListener="#{itemView.save()}" value="Create New Item"></p:commandButton> 
+                                                    <p:commandButton update="chng_pass_admn_form" actionListener="#{adminController.adminPasswordChange()}" value="Change Password"></p:commandButton> 
                                                 </center>
                                             </h:form>
                                         </div>
@@ -92,7 +91,9 @@
                 <!-- /.col-lg-12 -->
             </div>
 
-          
-    </ui:define>
+        </ui:define>
+    </ui:composition>        
 
-</ui:composition>
+</html>  
+
+

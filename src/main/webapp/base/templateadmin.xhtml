@@ -4,22 +4,12 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      lang="#{p:language()}" xml:lang="#{p:language()}">
+      >
 
 <h:head>
     <f:facet name="first">
         <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-93461466-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-            gtag('config', 'UA-93461466-1');
-        </script>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -60,17 +50,7 @@
         </div>
     </div>
 
-    <ui:insert name="status">
-        <p:ajaxStatus styleClass="status-indicator">
-            <f:facet name="start">
-                <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
-            </f:facet>
-
-            <f:facet name="complete">
-                <h:outputText value=""/>
-            </f:facet>
-        </p:ajaxStatus>
-    </ui:insert>
+   
 
     <ui:insert name="body"></ui:insert>
 
@@ -78,9 +58,9 @@
     <h:outputScript name="script/layout.js"/>
     <h:outputScript name="script/prism.js"/>
      <h:outputScript name="js/jquery-1.10.2.js" />
-            <h:outputScript name="js/jquery.metisMenu.js" />
-            <h:outputScript name="bootstrap/js/bootstrap.js" />
-            <h:outputScript name="js/custom-scripts.js" />
+    <h:outputScript name="js/jquery.metisMenu.js" />
+    <h:outputScript name="bootstrap/js/bootstrap.js" />
+    <h:outputScript name="js/custom-scripts.js" />
 </h:body>
 
 </html>

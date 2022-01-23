@@ -1,11 +1,11 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/templates/user/main.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
 
-   <ui:define name="content">  
+    <ui:composition template="/templates/user/main.xhtml">
+        <ui:define name="content">  
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
                 <ul class="breadcrumb breadcrumb_style">
@@ -23,11 +23,11 @@
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="panel panel-primary text-center no-boder bg-color-green">
                         <div class="panel-body">
-                            <i class="fa fa-bar-chart-o fa-5x"></i>
-                            <h3>4</h3>
+                            <i class="glyphicon glyphicon-usd fa-5x"></i>
+                            <h3></h3>
                         </div>
                         <div class="panel-footer back-footer-green">
-                           PAID
+                           Balance Query
 
                         </div>
                     </div>
@@ -35,27 +35,23 @@
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="panel panel-primary text-center no-boder bg-color-blue">
                         <div class="panel-body">
-                            <i class="glyphicon glyphicon-retweet fa-5x"></i>
-                            <h3>1,160 </h3>
+                            <i class="glyphicon glyphicon-random fa-5x"></i>
+                          <h3></h3>
                         </div>
                         <div class="panel-footer back-footer-blue">
-                           APPROVED
-                        
+                            Transaction
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="panel panel-primary text-center no-boder bg-color-red">
                         <div class="panel-body">
-                            <i class="glyphicon glyphicon-user fa-5x"></i>
-                            <center>
-                                <h3>
-                                   3 
-                                </h3>
-                            </center>
+                            <i class="glyphicon glyphicon-import fa-5x"></i>
+                           <h3></h3>
                         </div>
                         <div class="panel-footer back-footer-red">
-                            REJECTED
+                           Deposit
 
                         </div>
                     </div>
@@ -64,13 +60,11 @@
                     <div class="panel panel-primary text-center no-boder bg-color-brown">
                         <div class="panel-body">
                             <i class="fa fa-users fa-5x"></i>
-                            <center>
-                                <h3>
-                                    0
-                                </h3></center>
+                          
+                                <h3></h3>
                         </div>
                         <div class="panel-footer back-footer-brown">
-                            PENDING
+                           Registration
 
                         </div>
                     </div>
@@ -78,11 +72,11 @@
             </div>
 
             <div class="row">
-                
+
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Transaction Bar Chart
+                            Transaction Bar Chart
                         </div>
                         <div class="panel-body">
                             <div id="morris-bar-chart"></div>
@@ -103,5 +97,7 @@
             </div>
 
         </ui:define>
+    </ui:composition>        
 
-</ui:composition>
+</html>   
+

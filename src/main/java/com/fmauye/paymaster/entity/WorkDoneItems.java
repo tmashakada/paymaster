@@ -50,7 +50,25 @@ public class WorkDoneItems implements Serializable{
     private WorkDone  workdone;
     
     private BigDecimal amount;
+   private int qty;
+    private BigDecimal totalamount;
 
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    public BigDecimal getTotalamount() {
+        return totalamount;
+    }
+
+    public void setTotalamount(BigDecimal totalamount) {
+        this.totalamount = totalamount;
+    }
+    
     public Long getId() {
         return id;
     }

@@ -27,8 +27,8 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public List<Department> getAllDepartments() {
          System.out.println("kkkkkkkkkkk");
-       List<Department> nn=  departmentRepository.findAll();
-       System.out.println(" fffffffffffff"+  nn.size());
+         List<Department> nn=  departmentRepository.findAll();
+        System.out.println(" fffffffffffff"+  nn.size());
        return  departmentRepository.findAll();
     }
 
@@ -63,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService{
      		   .orElseThrow(() -> new ResourceNotFoundException("Department Not Found with "+id));
     	
     	existingDepartment.setCreatedAt(LocalDateTime.now());
-    	existingDepartment.setDescription(existingDepartment.getDescription());
+    	existingDepartment.setDescription(department.getDescription());
     
     	
     	return this.departmentRepository.save(existingDepartment);

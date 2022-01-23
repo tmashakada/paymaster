@@ -1,54 +1,118 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/base/template.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">  
 
-    <ui:define name="content">
-        <div class="content-section documentation">
-            <h1>Getting Started</h1>
-            <p>PrimeFaces is a lightweight library with one jar, zero-configuration and no required dependencies.
-                You just need to download PrimeFaces, add the primefaces-{version}.jar to your classpath and import the namespace to get started.</p>
+    <ui:composition template="base/template.xhtml">
+        <ui:define name="content">  
+            <f:metadata>
+                <f:viewParam name="username" value="#{profileView.username}" />
+               <f:event listener="#{profileView.preRenderView}"
+               type="preRenderView" />
+            </f:metadata>
 
-            <h5>Download</h5>
-            <p>PrimeFaces can be downloaded manually or via maven.</p>
-            <pre><code class="language-xml">
-&lt;dependency&gt;
-    &lt;groupId&gt;org.primefaces&lt;/groupId&gt;
-    &lt;artifactId&gt;primefaces&lt;/artifactId&gt;
-    &lt;version&gt;10.0.0&lt;/version&gt;
-&lt;/dependency&gt;
+            <!--BEGIN BREADCRUMB PAGE-->
+            <div>
+                <ul class="breadcrumb breadcrumb_style">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <!--END BREADCRUMB PAGE-->
 
-</code></pre>
+            <div class="row">
+                <div class="col-lg-12">
 
-            <h5>Namespaces</h5>
-            <p>PrimeFaces namespace is necessary to add PrimeFaces components to your pages.</p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading ">
 
-            <pre><code class="language-xml">
-&lt;html xmlns:p="http://primefaces.org/ui"&gt;
-&lt;/html&gt;
+                           Profile Details
+                        </div>
+                        <div class="panel-body pan">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div id="generalTabContent" class="tab-content">
+                                        <div id="tab-edit" class="tab-pane fade in active">
 
-</code></pre>
+                                            <h:form id="chng_pass_admn_form" class="form-horizontal">
+                                                
+                                                
 
-            <h5>Test Run</h5>
-            <p>That’s it, now you can add a test component to see if everything is ok..</p>
+                                                <h4> </h4>
+                                                <p:messages id="messages" showDetail="true" closable="true" />
+                                                <div class="form-group"><label class="col-sm-3 control-label">Item Description</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                
+                                                                <p:selectOneMenu id="advanced" value="#{itemView.item}" converter="#{countryConverter}"
+                                                                    panelStyle="width:180px" effect="fade" var="i"
+                                                                    filter="true" filterMatchMode="startsWith" class="form-control">
+                                                                    
+                                                                    <f:selectItems value="#{itemView.items}" var="item"
+                                                                     itemLabel="#{item.name}" itemValue="#{item}"/>
 
-            <pre><code class="language-xml">
-&lt;html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"&gt;
-    
-    &lt;h:head&gt;
-    &lt;/h:head&gt;
+                                                                </p:selectOneMenu>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-    &lt;h:body&gt;
-        &lt;p:spinner /&gt;
-    &lt;/h:body&gt;
-&lt;/html&gt;
+                                                <div class="form-group"><label class="col-sm-3 control-label">Unit Amount</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:inputText value="#{profileView.firstname}" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-</code></pre>
+                                                <div class="form-group"><label class="col-sm-3 control-label">Qty</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <h:inputText value="#{profileView.surname}"  class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-        </div>
-    </ui:define>
-</ui:composition>
+                                                
+
+                                               
+
+                                                
+                                                <hr/>
+                                                <center>
+                                                    <p:commandButton update="chng_pass_admn_form" actionListener="#{adminController.adminPasswordChange()}" value="Save"></p:commandButton> 
+                                                </center>
+                                            </h:form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+        </ui:define>
+    </ui:composition>        
+
+</html>  
+
+

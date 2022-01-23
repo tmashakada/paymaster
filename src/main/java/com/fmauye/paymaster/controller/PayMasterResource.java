@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.fmauye.paymaster.dto.UserDto;
+import com.fmauye.paymaster.entity.Item;
+import com.fmauye.paymaster.service.ItemServiceImpl;
 /**
  *
  * @author F5437172
@@ -34,16 +36,21 @@ public class PayMasterResource {
     @Autowired
     private UsersService usersService;
     
+    @Autowired
+    private ItemServiceImpl itemServiceImpl ;
+    
     @GetMapping("/departments")
     public List<Department> getAllDepartments(){
        
         return departmentServiceImpl.getAllDepartments();
     }
-    @PostMapping
+    @PostMapping("/departments")
     public Department createNewDepartment(@RequestBody Department department){
         
         return departmentServiceImpl.createDepartment(department);
     }
+    
+    
     @GetMapping("/users")
     List<Users> getAllUsers(){
         
@@ -54,5 +61,15 @@ public class PayMasterResource {
         
          return usersService.updateUsers(userdto);
     }
-    
+    @PostMapping("/items")
+    public Item createNewItem(@RequestBody Item item){
+        
+        return itemServiceImpl.createItem(item);
+    }
+    @GetMapping("/items")
+    List<Item> getAllItems(){
+        
+          return itemServiceImpl.getAllItems();
+    }
+  
 }

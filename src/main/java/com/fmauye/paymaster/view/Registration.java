@@ -172,6 +172,7 @@ public class Registration implements Serializable{
     }
 
     public List<Department> getAvailableDepartments() {
+           availableDepartments= departmentServiceImpl.getAllDepartments();
         return availableDepartments;
     }
 

@@ -13,27 +13,61 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author "Tafadzwa"
  */
 @Entity
-public class Item implements Serializable{
-    @Id
+@Table(name = "work_done_items_temp")
+public class WorkDoneItemsTemp implements Serializable{
+     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String description;
-    private BigDecimal amount ;
+   
+
     @Column(nullable = false,name="created_at")
+    
     private LocalDateTime createdAt;
     
-    @Column(nullable = false,name="updated_at")
+    @Column(name="updated_at")
     private LocalDateTime updatedAt;
-    @Column(nullable = false,name="item_deleted")
-    private  boolean isDeleted;
+    
+   
+    
+    
+    private int item;
+    
+    private int qty;
+    private BigDecimal amount;
+    private BigDecimal totalamount;
+    private String  username;
+
+    public BigDecimal getTotalamount() {
+        return totalamount;
+    }
+
+    public void setTotalamount(BigDecimal totalamount) {
+        this.totalamount = totalamount;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -51,30 +85,25 @@ public class Item implements Serializable{
         this.updatedAt = updatedAt;
     }
 
-    public boolean isIsDeleted() {
-        return isDeleted;
+    public int getItem() {
+        return item;
     }
 
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setItem(int item) {
+        this.item = item;
     }
+
     
-    
-    public Long getId() {
-        return id;
+
+    public int getQty() {
+        return qty;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  
 
     public BigDecimal getAmount() {
         return amount;
@@ -83,6 +112,6 @@ public class Item implements Serializable{
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-    
+
     
 }

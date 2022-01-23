@@ -20,16 +20,18 @@
                     <a tabindex="0">Work Done</a>
                     <ul class="connected-overlay-in">
                         <li class="topbar-submenu-header">Work Done2</li>
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-file"></i><span>Submitted  Work</span></h:link></li>
+                        <li><h:link outcome="/admin/viewpending"><i class="pi pi-fw pi-file"></i><span>View Pending</span></h:link></li>
+                        <li><h:link outcome="/admin/viewapproved"><i class="pi pi-fw pi-desktop"></i><span>View Approved</span></h:link></li>
+                        <li><h:link outcome="/admin/viewpaid"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
+                        </li>
+                        
                         <li><a href="https://www.primefaces.org/designer/primefaces"><i 
                                     class="pi pi-fw pi-palette"></i><span>View Pending</span></a>
                         </li>
-                        <li><a href="https://www.primefaces.org/designer-jsf"><i
-                                class="pi pi-fw pi-desktop"></i><span>View Approved</span></a></li>
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Paid</span></h:link>
-                        </li>
+                        
+                        
                         <li class="topbar-submenu-header">NOT Approved</li>
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View REJECTED</span></h:link> </li>
+                        <li><h:link outcome="/admin/viewrejected"><i class="pi pi-fw pi-palette"></i><span>View REJECTED</span></h:link> </li>
                     </ul>
                 </li>
                  <li class="topbar-submenu">
@@ -38,7 +40,7 @@
                         <li class="topbar-submenu-header">Sms</li>
                      
                        
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Sent Sms</span></h:link>
+                        <li><h:link outcome="/admin/smssentreport"><i class="pi pi-fw pi-info-circle"></i><span>View Sent Sms</span></h:link>
                         </li>
                         <li class="topbar-submenu-header">NOT Approved</li>
                         <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>Send Sms</span></h:link> </li>
@@ -48,12 +50,15 @@
                     <a tabindex="0">Setup</a>
                     <ul class="connected-overlay-in">
                         <li class="topbar-submenu-header">Manage Items</li>
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-file"></i><span>Check Balance</span></h:link></li>
+                        <li><h:link outcome="/admin/createitems"><i class="pi pi-fw pi-file"></i><span>Add New Item</span></h:link></li>
                        
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Sent Sms</span></h:link>
+                        <li><h:link outcome="/admin/customers"><i class="pi pi-fw pi-info-circle"></i><span>Update Items</span></h:link>
                         </li>
+                       <li><h:link outcome="/admin/newitems_1"><i class="pi pi-fw pi-info-circle"></i><span>View Items</span></h:link>
+                        </li> 
+                        
                    <li class="topbar-submenu-header">Manage Users</li>
-                        <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>Modify User</span></h:link> </li>
+                        <li><h:link outcome="/admin/treport"><i class="pi pi-fw pi-info-circle"></i><span>Modify User</span></h:link> </li>
                         <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>View Users</span></h:link> </li>
                     <li class="topbar-submenu-header">Manage Department</li>
                         <li><h:link outcome="/admin/admin"><i class="pi pi-fw pi-info-circle"></i><span>Add Department</span></h:link> </li>
