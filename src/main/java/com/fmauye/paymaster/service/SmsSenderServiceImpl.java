@@ -5,6 +5,7 @@
  */
 package com.fmauye.paymaster.service;
 
+
 import com.fmauye.paymaster.config.TwilioConfiguration;
 import com.fmauye.paymaster.model.SmsRequest;
 import com.twilio.exception.ApiException;
@@ -16,6 +17,7 @@ import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author "Tafadzwa"

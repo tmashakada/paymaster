@@ -15,4 +15,6 @@ public interface ItemService {
     List<Item> getAllItems();
     Item createItem(Item item);
     Item updateItem(Item item,Long id);
+    Item getItem(Long id);
+    Item getItem(String name);
 }

@@ -33,12 +33,13 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Department createDepartment(Department department)throws ResourceNotFoundException {
+    public Department createDepartment(String depart)throws ResourceNotFoundException {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       Optional<Department> departmentOpt=departmentRepository.findDepartmentByDescriptionIgnoreCase(department.getDescription());
+       Optional<Department> departmentOpt=departmentRepository.findDepartmentByDescriptionIgnoreCase(depart);
        if(departmentOpt.isPresent())
-          throw new ResourceNotFoundException("Department Already Created  "+department.getDescription()) ;
-       
+          throw new ResourceNotFoundException("Department Already Created  "+depart) ;
+       Department department=new Department();
+       department.setDescription(depart);
        department.setCreatedAt(LocalDateTime.now());
        return this. departmentRepository.save(department);
     }

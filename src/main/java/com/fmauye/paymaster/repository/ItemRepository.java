@@ -15,5 +15,6 @@ import java.util.Optional;
  */
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>{
-    Optional<Item> findItemByDescriptionIgnoreCase(String name); 
+    Optional<Item> findItemByDescriptionIgnoreCase(String name);
+    
 }

@@ -1,17 +1,15 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                
-                template="/templates/admin/main.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
+
+    <ui:composition template="/templates/admin/main.xhtml">
 
     <ui:define name="content">
-        <div class="home">
-            
-            
-            <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">
-                <p:growl showDetail="true" sticky="false"/>
+        
+                
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
                 <ul class="breadcrumb breadcrumb_style">
@@ -23,193 +21,65 @@
                     </li>
                 </ul>
             </div>
-            <!--END BREADCRUMB PAGE-->
+             <!--END BREADCRUMB PAGE-->
+            <h:form id="view_report_form" class="form-horizontal">
+                <p:growl showDetail="true" sticky="false"/>
+                
+                <p:dataTable value="#{reportController.hodrejectedreport}" id="ss" var="user_tbl" 
 
-            <div class="row">
-                <div class="col-lg-12">
+                         paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading ">
+                <p:column sortBy="#{user_tbl.id}">
 
-                       Rejected Work Done
-                        </div>
-                        <div class="panel-body pan">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div id="generalTabContent" class="tab-content">
-                                        <div id="tab-edit" class="tab-pane fade in active">
+                    <f:facet name="header">Ref Number</f:facet>  
 
-                                            <h4> </h4>
-                                            <h:form id="monthly_report_frm">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="form-group"><label class="col-sm-3 control-label">From</label>
-                                                            <div class="col-sm-9 controls">
-                                                                <div class="row">
-                                                                    <div class="col-xs-9">
-                                                                        <p:calendar value="#{reportController.workDoneReport.fromDate}" pattern="dd-MM-yyyy" mask="true"  effect="fold" required="true"/>
-                                                                       
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="form-group"><label class="col-sm-3 control-label">To</label>
-                                                            <div class="col-sm-9 controls">
-                                                                <div class="row">
-                                                                    <div class="col-xs-9">
-                                                                        <p:calendar value="#{reportController.workDoneReport.toDate}" pattern="dd-MM-yyyy" mask="true" effect="fold" required="true"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="form-group"><label class="col-sm-3 control-label"></label>
-                                                            <div class="col-sm-9 controls">
-                                                                <div class="row">
-                                                                    <div class="col-xs-9">
-                                                                        <center>
-                                                                            <p:commandButton update=":month_tbl monthly_report_frm" actionListener="#{reportController.monthlyTransReport()}" value="Search"/>
-                                                                        </center>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </h:form>
-                                            <hr/>
+                    <h:outputText value="#{user_tbl.id}"/>
 
-                                            <h:form id="month_tbl">
-                                                <p:dataTable value="#{reportController.pending_report}" id="tbl" var="pending_report_tbl" 
+                </p:column> 
 
-                                                             paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
+                <p:column sortBy="#{user_tbl.createdAt}">
 
+                    <f:facet name="header">Created Date</f:facet>  
 
+                    <h:outputText value="#{user_tbl.createdAt}"/>
 
-                                                    <p:column sortBy="#{pending_report_tbl.transID}">
+                </p:column>  
 
-                                                        <f:facet name="header">TransID</f:facet>  
+                <p:column sortBy="#{user_tbl.updatedAt}">
 
-                                                        <h:outputText value="#{pending_report_tbl.transID}"/>
+                    <f:facet name="header">Update Date</f:facet>  
 
-                                                    </p:column> 
+                    <h:outputText value="#{user_tbl.updatedAt}"/>
 
-                                                    <p:column sortBy="#{pending_report_tbl.createdat}">
+                </p:column>
 
-                                                        <f:facet name="header">Created Date</f:facet>  
+                <p:column sortBy="#{user_tbl.status}">
 
-                                                        <h:outputText value="#{pending_report_tbl.createdat}"/>
+                    <f:facet name="header">Status</f:facet>  
 
-                                                    </p:column>  
+                    <h:outputText value="#{user_tbl.status}"/>
 
-                                                    <p:column sortBy="#{pending_report_tbl.updatedat}">
-
-                                                        <f:facet name="header">UpDate Date </f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.updatedat}"/>
-
-                                                    </p:column>
-
-                                                    <p:column sortBy="#{pending_report_tbl.hrstatus}">
-
-                                                        <f:facet name="header">Status</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.hrstatus}"/>
-
-                                                    </p:column>
-
-                                                    <p:column >
-
-                                                        <f:facet name="header">HOD Approved</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.hodapprovedby}"/>
-
-                                                    </p:column>
-                                                    <p:column >
-
-                                                        <f:facet name="header">Submitted By</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.submittedby}"/>
-
-                                                    </p:column>
-                                                    
-                                                     <p:column >
-
-                                                        <f:facet name="header">Department</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.submittedby}"/>
-
-                                                    </p:column>
-                                                    
-                                                    <p:column >
-
-                                                        <f:facet name="header">Total Amount</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.totalAmount}"/>
-
-                                                    </p:column>
-                                                    <p:column >
-
-                                                        <f:facet name="header">View Details</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.totalAmount}"/>
-
-                                                    </p:column>
-                                                    
-                                                </p:dataTable>  
-                                                <div style="text-align: left; float: right; margin: 0px; padding: 0px;">
-                                                    <h:commandLink>
-                                                        <p:graphicImage id="xls" value="/images/print/xls.png" width="30"/> 
-                                                        <p:dataExporter type="xls" target="tbl" fileName="transaction_report" />
-                                                        <p:tooltip for="xls" value="Download XLS Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-
-                                                    <h:commandLink>
-                                                        <p:graphicImage id="pdf" value="/images/print/pdf.jpg" width="30"/>
-                                                        <p:dataExporter type="pdf" target="tbl" fileName="transaction_report"/>
-                                                        <p:tooltip for="pdf" value="Download PDF Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-
-                                                    <h:commandLink >
-                                                        <p:graphicImage id="csv" value="/images/print/csv.jpg" width="30"/>
-                                                        <p:dataExporter type="csv" target="tbl" fileName="transaction_report" />
-                                                        <p:tooltip id="toolTipGrow" for="csv" value="Download CSV Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-                                                    
-                                                    <h:commandLink>
-                                                        <p:graphicImage id="xml" value="/images/print/xml1.jpg" width="30"/>
-                                                        <p:dataExporter type="xml" target="tbl" fileName="transaction_report"/>
-                                                        <p:tooltip for="xml" value="Download XML Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-                                                </div>
-                                            </h:form>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
+                </p:column>
 
                
-            </div>
+              
+                <p:column style="width:5%">
+                    
+                    <p:commandButton process="@this" update=":view_user_form" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="View Rejected">  
 
-         
+                        <f:setPropertyActionListener value="#{user_tbl}" target="#{reportController.workDone}"/>  
 
+                    </p:commandButton>  
 
-            
-            
-            
-       </div>          
+                </p:column>
+
+            </p:dataTable> 
+          </h:form>
+            <p:dialog header="View Rejected Work Done" showEffect="clip" widgetVar="dialog_view_user" modal="true" height="90%" width="60%">
+                <ui:include src="confermation_1.xhtml"/>
+            </p:dialog> 
+        
     </ui:define>
 
 </ui:composition>
+    </html>   

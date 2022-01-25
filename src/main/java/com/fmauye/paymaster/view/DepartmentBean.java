@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
  *
@@ -24,7 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DepartmentBean implements Serializable{
     
      private List<Department> departments;
-     private String department;
+     
+     private List<Department> departmentsList;
+     private String departdescription;
      @Autowired
      DepartmentServiceImpl departmentServiceImpl;
     @PostConstruct
@@ -34,6 +39,8 @@ public class DepartmentBean implements Serializable{
     }
 
     public List<Department> getDepartments() {
+        
+        
         return departments;
     }
 
@@ -41,12 +48,32 @@ public class DepartmentBean implements Serializable{
         this.departments = departments;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartdescription() {
+        return departdescription;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartdescription(String departdescription) {
+        this.departdescription = departdescription;
+    }
+
+    public List<Department> getDepartmentsList() {
+        
+      List<Department>    departmentList= departmentServiceImpl.getAllDepartments();
+      departmentsList=departmentList;
+        return departmentsList;
+    }
+
+    public void setDepartmentsList(List<Department> departmentsList) {
+        this.departmentsList = departmentsList;
+    }
+
+    
+    public void createNewDepartment(){
+        
+     Department department= departmentServiceImpl.createDepartment(departdescription);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Created Successful New Department "+department.getDescription()));
+     
     }
     
 }

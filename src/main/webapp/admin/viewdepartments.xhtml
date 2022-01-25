@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">  
+
+    <ui:composition template="/templates/admin/main.xhtml">
+        <ui:define name="content"> 
+            <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">  
+            <div class="home">
+       <!--BEGIN BREADCRUMB PAGE-->
+            <div>
+                <ul class="breadcrumb breadcrumb_style">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">View Department</a>
+                    </li>
+                </ul>
+            </div>
+            <!--END BREADCRUMB PAGE-->
+
+            <h:form id="trans_all_report">
+
+                <p:dataTable value="#{departmentBean.departmentsList}" id="all_tbl" var="all_trans_tbl" 
+
+                             paginator="true" rows="20" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
+
+                    <p:column sortBy="#{all_trans_tbl.id}">
+                        <f:facet name="header">id</f:facet>  
+
+                        <h:outputText value="#{all_trans_tbl.id}"/>
+
+                    </p:column> 
+
+                    <p:column sortBy="#{all_trans_tbl.createdAt}">
+
+                        <f:facet name="header">Created Date</f:facet>  
+
+                        <h:outputText value="#{all_trans_tbl.createdAt}"/>
+
+                    </p:column>  
+
+                  
+                    
+                    <p:column sortBy="#{all_trans_tbl.description}">
+
+                        <f:facet name="header">Description</f:facet>  
+
+                        <h:outputText value="#{all_trans_tbl.description}"/>
+
+                    </p:column>
+
+                  
+
+                    
+
+                </p:dataTable> 
+               
+            </h:form>
+         </div>
+        </div>        
+        </ui:define>
+    </ui:composition>        
+
+</html>  
+
+

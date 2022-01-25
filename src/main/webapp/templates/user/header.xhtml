@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -30,12 +31,13 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i><span class="hidden-xs">#{loginController.useName}</span><span class="caret"></span>
+                        <i class="fa fa-user fa-fw"></i><span class="hidden-xs">#{loginBean.useName}</span><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <f:param name="username" value="#{loginBean.useName}"/>
                         </li>
-                        <li><a href="/Online_Banking/bank/user/passChng.xhtml"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                        <li><a href="/user/passChng.xhtml"><i class="fa fa-gear fa-fw"></i> Change Password</a>
                         </li>
                         <h:form>
                             <li class="divider"></li>

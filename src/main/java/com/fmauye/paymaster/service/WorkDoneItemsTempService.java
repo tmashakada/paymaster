@@ -9,6 +9,7 @@ import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.entity.WorkDone;
 import com.fmauye.paymaster.entity.WorkDoneItems;
 import com.fmauye.paymaster.entity.WorkDoneItemsTemp;
+import com.fmauye.paymaster.exception.ResourceNotFoundException;
 import com.fmauye.paymaster.repository.ItemRepository;
 import com.fmauye.paymaster.repository.UsersRepository;
 import com.fmauye.paymaster.repository.WorkDoneItemsRepository;
@@ -40,6 +41,9 @@ public class WorkDoneItemsTempService {
     private WorkDoneItemsRepository workDoneItemsRepository;
     
     public WorkDoneItemsTemp create(WorkDoneItemsTemp temp){
+         Optional<WorkDoneItemsTemp> tempOpt=tempRepository.findByUsernameAndDescription(temp.getUsername(),temp.getDescription());
+       if(tempOpt.isPresent())
+          throw new ResourceNotFoundException("Item Already Added  with id "+temp.getDescription()) ;
         
         return this.tempRepository.save(temp);
         
@@ -58,6 +62,10 @@ public class WorkDoneItemsTempService {
     	
     	this.tempRepository.deleteAll(temps);
     }
+    public List<WorkDoneItemsTemp> getAllByUserName(String username){
+      
+        return  this.tempRepository.findByUsernameIgnoreCase(username);
+   }
     
     public  WorkDone saveWorkDone(String username){
          List<WorkDoneItemsTemp> tempList=   getAll(username);
@@ -66,19 +74,20 @@ public class WorkDoneItemsTempService {
          WorkDone workDone=new WorkDone();
          workDone.setCreatedAt(LocalDateTime.now());
          workDone.setUpdatedAt(LocalDateTime.now());
-         workDone.setDepartment(useropt.get().getDepartment());
-         workDone.setSubmittedBy(useropt.get());
-        
+         workDone.setDepartment(useropt.get().getDepartment().getDescription());
+         workDone.setSubmittedBy(useropt.get().getUserName());
+         workDone.setStatus("PENDING");
+         workDone.setUsername(username);
        WorkDone newworkdone=  workDoneRepository.save(workDone);
        List<WorkDoneItems> workDoneItemsList=new ArrayList<>();
       for(WorkDoneItemsTemp temp:tempList){
-           Item item=itemRepository.getById(Long.valueOf(temp.getItem()));
-
+          Optional<Item> itemopt=itemRepository.findItemByDescriptionIgnoreCase(temp.getDescription());
+         // Item item =new Item();
           WorkDoneItems workDoneItems=new WorkDoneItems();
           workDoneItems.setAmount(temp.getAmount());
           workDoneItems.setQty(temp.getQty());
           workDoneItems.setTotalamount(temp.getTotalamount());
-          workDoneItems.setItem(item);
+          workDoneItems.setItem(itemopt.get());
           workDoneItems.setCreatedAt(LocalDateTime.now());
           workDoneItems.setUpdatedAt(LocalDateTime.now());
           workDoneItems.setWorkdone(newworkdone);

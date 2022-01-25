@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.annotation.PostConstruct;
+
 import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import org.springframework.stereotype.Service;
 
 //import com.github.javafaker.Faker;

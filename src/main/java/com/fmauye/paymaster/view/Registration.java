@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author "Tafadzwa"
  */
+
 @Named
 @ViewScoped
 public class Registration implements Serializable{

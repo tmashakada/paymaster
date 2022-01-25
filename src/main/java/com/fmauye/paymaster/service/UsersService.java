@@ -9,6 +9,7 @@ package com.fmauye.paymaster.service;
 import com.fmauye.paymaster.dto.UserDto;
 import com.fmauye.paymaster.repository.UsersRepository;
 import com.fmauye.paymaster.entity.ConfirmationToken;
+import com.fmauye.paymaster.entity.Item;
 import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.enums.UserRole;
 import com.fmauye.paymaster.exception.ResourceNotFoundException;
@@ -52,24 +53,25 @@ public class UsersService {
     public   Users verifyLogin(String username, String password) throws UsernameNotFoundException {
         
        Optional<Users> usersopt = usersRepository.findByUserNameIgnoreCase(username);
-          LOGGER.info("Veify User {}", usersopt.get().getDepartment());
-       if (!usersopt.isPresent()) {
-            throw new UsernameNotFoundException ("The UserName you entered is Not Found");
-        }
-
-        if (usersopt.get().getEnabled() ==false) {
-           throw new UsernameNotFoundException ("Your Account is not confirmed");
-        }
-        if (usersopt.get().getLocked() ==true) {
-           throw new UsernameNotFoundException ("Your Account is Locked Plaese Contact The System Admin");
-        }
-             LOGGER.info("Veify User {}", "Here2");
+       
+         Users foundUser=this.usersRepository.findByUserNameIgnoreCase(username) 
+                 .orElseThrow(() -> new UsernameNotFoundException ("Invalid username or password"));
+            LOGGER.info("Veify User {}", usersopt.get().getDepartment());
         String encodedPassword = encrytPasswordServiceImpl.hashPassword(password);
         System.out.println("HashedPass "+encodedPassword );
         System.out.println("DbPass "+usersopt.get().getPassword() );
         if(!encodedPassword.equals(usersopt.get().getPassword())){
-             throw new UsernameNotFoundException ("The Password that you've entered is incorrect"); 
+             throw new UsernameNotFoundException ("Invalid username or password"); 
         }
+
+        if (foundUser.getEnabled() ==false) {
+           throw new UsernameNotFoundException ("Your Account is not confirmed");
+        }
+        if (foundUser.getLocked() ==true) {
+           throw new UsernameNotFoundException ("Your Account is Locked Plaese Contact The System Admin");
+        }
+             LOGGER.info("Veify User {}", "Here2");
+       
         
         Users users=usersopt.get();
         return  users;

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface DepartmentService {
     public List<Department> getAllDepartments();
-    public Department createDepartment(Department department);
+    public Department createDepartment(String name);
     public Department getDepartmentById(Long id);
     public Department getDepartmentByName(String name);
     public Department updateDepartment(Department department,Long id);

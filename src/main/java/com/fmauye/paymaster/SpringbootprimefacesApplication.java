@@ -16,6 +16,7 @@ import static java.lang.Boolean.TRUE;
 public class SpringbootprimefacesApplication {
 
     
+    
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootprimefacesApplication.class, args);
 	}

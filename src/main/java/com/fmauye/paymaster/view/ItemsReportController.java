@@ -30,6 +30,7 @@ public class ItemsReportController {
      @Autowired
      private  ItemServiceImpl itemServiceImpl;
      @PostConstruct
+     
     public void init() {
           allItems_report=  itemServiceImpl.getAllItems();
     }

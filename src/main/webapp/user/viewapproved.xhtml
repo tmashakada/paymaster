@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
+
+    <ui:composition template="/templates/user/main.xhtml">
+        
+        <ui:define name="content">  
+            
+            <!--BEGIN BREADCRUMB PAGE-->
+            <div>
+                <ul class="breadcrumb breadcrumb_style">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">View Approved</a>
+                    </li>
+                </ul>
+            </div>
+            <!--END BREADCRUMB PAGE-->
+            <h:form id="view_report_form" class="form-horizontal">
+                <p:dataTable value="#{reportController.userapprovedreport}" id="ss" var="user_tbl" 
+
+                         paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
+
+                <p:column sortBy="#{user_tbl.id}">
+
+                    <f:facet name="header">Ref Number</f:facet>  
+
+                    <h:outputText value="#{user_tbl.id}"/>
+
+                </p:column> 
+
+                <p:column sortBy="#{user_tbl.createdAt}">
+
+                    <f:facet name="header">Created Date</f:facet>  
+
+                    <h:outputText value="#{user_tbl.createdAt}"/>
+
+                </p:column>  
+
+                <p:column sortBy="#{user_tbl.updatedAt}">
+
+                    <f:facet name="header">Update Date</f:facet>  
+
+                    <h:outputText value="#{user_tbl.updatedAt}"/>
+
+                </p:column>
+
+                <p:column sortBy="#{user_tbl.status}">
+
+                    <f:facet name="header">Status</f:facet>  
+
+                    <h:outputText value="#{user_tbl.status}"/>
+
+                </p:column>
+
+               
+              
+                <p:column style="width:5%">
+                    
+                    <p:commandButton process="@this" update=":view_user_form" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="Confermation">  
+
+                        <f:setPropertyActionListener value="#{user_tbl}" target="#{reportController.workDone}"/>  
+
+                    </p:commandButton>  
+
+                </p:column>
+
+            </p:dataTable> 
+          </h:form>
+            <p:dialog header="View and Confirmation" showEffect="clip" widgetVar="dialog_view_user" modal="true" height="90%" width="60%">
+                <ui:include src="confermation.xhtml"/>
+            </p:dialog> 
+
+        </ui:define>
+        
+    </ui:composition>        
+
+</html>   
+

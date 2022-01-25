@@ -1,17 +1,16 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-               
-                template="/templates/admin/main.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
+
+    <ui:composition template="/templates/admin/main.xhtml">
+        
 
     <ui:define name="content">
-        <div class="home">
+        
             
-            
-            <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">
-                <p:growl showDetail="true" sticky="false"/>
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
                 <ul class="breadcrumb breadcrumb_style">
@@ -25,161 +24,63 @@
             </div>
             <!--END BREADCRUMB PAGE-->
 
-            <div class="row">
-                <div class="col-lg-12">
+            <h:form id="view_report_form" class="form-horizontal">
+                    <p:growl showDetail="true" sticky="false"/>
+                <p:dataTable value="#{reportController.hodapprovedreport}" id="ss" var="user_tbl" 
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading ">
+                         paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
 
-                        Approved  Work Done
-                        </div>
-                        <div class="panel-body pan">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div id="generalTabContent" class="tab-content">
-                                        <div id="tab-edit" class="tab-pane fade in active">
+                <p:column sortBy="#{user_tbl.id}">
 
-                                            <h4> </h4>
-                                            <h:form id="monthly_report_frm">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="form-group"><label class="col-sm-3 control-label">From</label>
-                                                            <div class="col-sm-9 controls">
-                                                                <div class="row">
-                                                                    <div class="col-xs-9">
-                                                                        <p:calendar value="#{reportController.workDoneReport.fromDate}" pattern="dd-MM-yyyy" mask="true"  effect="fold" required="true"/>
-                                                                       
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="form-group"><label class="col-sm-3 control-label">To</label>
-                                                            <div class="col-sm-9 controls">
-                                                                <div class="row">
-                                                                    <div class="col-xs-9">
-                                                                        <p:calendar value="#{reportController.workDoneReport.toDate}" pattern="dd-MM-yyyy" mask="true" effect="fold" required="true"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="form-group"><label class="col-sm-3 control-label"></label>
-                                                            <div class="col-sm-9 controls">
-                                                                <div class="row">
-                                                                    <div class="col-xs-9">
-                                                                        <center>
-                                                                            <p:commandButton update=":month_tbl monthly_report_frm" actionListener="#{reportController.monthlyTransReport()}" value="Search"/>
-                                                                        </center>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </h:form>
-                                            <hr/>
+                    <f:facet name="header">Ref Number</f:facet>  
 
-                                            <h:form id="month_tbl">
-                                                <p:dataTable value="#{reportController.approved_report}" id="tbl" var="monthly_report_tbl" 
+                    <h:outputText value="#{user_tbl.id}"/>
 
-                                                             paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
+                </p:column> 
 
+                <p:column sortBy="#{user_tbl.createdAt}">
 
+                    <f:facet name="header">Created Date</f:facet>  
 
-                                                    <p:column sortBy="#{monthly_report_tbl.transID}">
+                    <h:outputText value="#{user_tbl.createdAt}"/>
 
-                                                        <f:facet name="header">TransID</f:facet>  
+                </p:column>  
 
-                                                        <h:outputText value="#{monthly_report_tbl.transID}"/>
+                <p:column sortBy="#{user_tbl.updatedAt}">
 
-                                                    </p:column> 
+                    <f:facet name="header">Update Date</f:facet>  
 
-                                                    <p:column sortBy="#{monthly_report_tbl.accountFrom}">
+                    <h:outputText value="#{user_tbl.updatedAt}"/>
 
-                                                        <f:facet name="header">Transaction From</f:facet>  
+                </p:column>
 
-                                                        <h:outputText value="#{monthly_report_tbl.accountFrom}"/>
+                <p:column sortBy="#{user_tbl.status}">
 
-                                                    </p:column>  
+                    <f:facet name="header">Status</f:facet>  
 
-                                                    <p:column sortBy="#{monthly_report_tbl.accountTo}">
+                    <h:outputText value="#{user_tbl.status}"/>
 
-                                                        <f:facet name="header">Transaction To</f:facet>  
-
-                                                        <h:outputText value="#{monthly_report_tbl.accountTo}"/>
-
-                                                    </p:column>
-
-                                                    <p:column sortBy="#{monthly_report_tbl.amount}">
-
-                                                        <f:facet name="header">Amount</f:facet>  
-
-                                                        <h:outputText value="#{monthly_report_tbl.amount}"/>
-
-                                                    </p:column>
-
-                                                    <p:column sortBy="#{monthly_report_tbl.dot}">
-
-                                                        <f:facet name="header">Date Of Transaction</f:facet>  
-
-                                                        <h:outputText value="#{monthly_report_tbl.dot}"/>
-
-                                                    </p:column>
-
-                                                </p:dataTable>  
-                                                <div style="text-align: left; float: right; margin: 0px; padding: 0px;">
-                                                    <h:commandLink>
-                                                        <p:graphicImage id="xls" value="/images/print/xls.png" width="30"/> 
-                                                        <p:dataExporter type="xls" target="tbl" fileName="transaction_report" />
-                                                        <p:tooltip for="xls" value="Download XLS Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-
-                                                    <h:commandLink>
-                                                        <p:graphicImage id="pdf" value="/images/print/pdf.jpg" width="30"/>
-                                                        <p:dataExporter type="pdf" target="tbl" fileName="transaction_report"/>
-                                                        <p:tooltip for="pdf" value="Download PDF Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-
-                                                    <h:commandLink >
-                                                        <p:graphicImage id="csv" value="/images/print/csv.jpg" width="30"/>
-                                                        <p:dataExporter type="csv" target="tbl" fileName="transaction_report" />
-                                                        <p:tooltip id="toolTipGrow" for="csv" value="Download CSV Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-                                                    
-                                                    <h:commandLink>
-                                                        <p:graphicImage id="xml" value="/images/print/xml1.jpg" width="30"/>
-                                                        <p:dataExporter type="xml" target="tbl" fileName="transaction_report"/>
-                                                        <p:tooltip for="xml" value="Download XML Format" showEffect="clip" hideEffect="explode"/>
-                                                    </h:commandLink>
-                                                </div>
-                                            </h:form>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
+                </p:column>
 
                
-            </div>
+              
+                <p:column style="width:5%">
+                    
+                    <p:commandButton process="@this" update=":view_user_form" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="View Approved">  
 
-         
+                        <f:setPropertyActionListener value="#{user_tbl}" target="#{reportController.workDone}"/>  
 
+                    </p:commandButton>  
 
-            
-            
-            
-       </div>      
+                </p:column>
+
+            </p:dataTable> 
+          </h:form>
+            <p:dialog header="View Work Done Approved Details" showEffect="clip" widgetVar="dialog_view_user" modal="true" height="90%" width="60%">
+                <ui:include src="confermation.xhtml"/>
+            </p:dialog> 
+ 
     </ui:define>
 
 </ui:composition>
+</html>   

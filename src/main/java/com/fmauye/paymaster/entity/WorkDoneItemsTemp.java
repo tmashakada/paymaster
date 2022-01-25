@@ -38,13 +38,15 @@ public class WorkDoneItemsTemp implements Serializable{
    
     
     
-    private int item;
+    
+    private String description;
     
     private int qty;
     private BigDecimal amount;
     private BigDecimal totalamount;
     private String  username;
 
+    
     public BigDecimal getTotalamount() {
         return totalamount;
     }
@@ -85,13 +87,15 @@ public class WorkDoneItemsTemp implements Serializable{
         this.updatedAt = updatedAt;
     }
 
-    public int getItem() {
-        return item;
+    public String getDescription() {
+        return description;
     }
 
-    public void setItem(int item) {
-        this.item = item;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+   
 
     
 

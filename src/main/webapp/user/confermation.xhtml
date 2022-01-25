@@ -2,218 +2,139 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
-
-        <h:form id="view_user_form">
-
-            <center>
-
-                <p:panelGrid style="margin-top:20px" id="user_conf_from">
-
-                    <p:row>
-
-                        <p:column style="font-weight: bold; font-size: 14px;"> 
-                            <h:outputText value="User ID "/>
-                        </p:column >
-
-                        <p:column style=" font-weight: bold; font-size: 16px;">
-                            <h:outputText value="#{userController.user.userID}"/>
-                           
-                        </p:column>
-                        
-
-                    </p:row>
-
-                    <p:row>
-
-                        <p:column rowspan="6" style="font-weight: bold;">
-                            <h:graphicImage value="/images/user/#{userController.user.photos}" width="150px" height="160px"/> 
-                        </p:column>
-
-                        <p:column style="font-weight: bold; font-size: 14px;">
-                            <h:outputText value="Name"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.name}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;   font-size: 14px;">
-                            <h:outputText value="Gender"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.gender}"/>
-                        </p:column>
-
-                    </p:row>
-
-
-                    <p:row>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Date of Birth"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.dob}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Occupation"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.occupation}"/>
-                        </p:column>
-
-                    </p:row>
-
-                    <p:row>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;"> 
-                            <h:outputText value="Marital Status"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.maritalStatus}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Religion"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.religion}"/>
-                        </p:column>
-
-                    </p:row>
-
-                    <p:row>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;"> 
-                            <h:outputText value="Father Name"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.fatherName}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Mother Name"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.motherName}"/>
-                        </p:column>
-
-                    </p:row>
-
-                    <p:row>
-                        
-                        <p:column  style="font-weight: bold;    font-size: 14px;"> 
-                            <h:outputText value="N_ID"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.NID}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Apps. Date"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.doa}"/>
-                        </p:column>
-
-                    </p:row>
-
-                    <p:row>
-                        
-                        <p:column style="font-weight: bold;    font-size: 14px;"> 
-                            <h:outputText value="Account Type"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.accountType}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Account Number"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.accountNumber}"/>
-                        </p:column>
-
-                    </p:row>
-
-                </p:panelGrid>
-
-
-                <p:panelGrid style="margin-top:20px; margin-bottom: 20px;" id="contact_info">
-
-                    <p:row>
-                        
-                        <p:column style="font-weight: bold; font-size: 14px;"> 
-                            <h:outputText value="Contact info."/>
-                        </p:column>
-
-                    </p:row>
-
-                    <p:row>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;"> 
-                            <h:outputText value="Phone"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.phoneNum}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold;    font-size: 14px;">
-                            <h:outputText value="Email"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.email}"/>
-                        </p:column>
-
-                    </p:row>
-
-                    <p:row>
-
-                        <p:column  style="font-weight: bold; font-size: 14px;"> 
-                            <h:outputText value="Present Address"/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.presentAddress}"/>
-                        </p:column>
-
-                        <p:column style="font-weight: bold; font-size: 14px;">
-                            <h:outputText value="Permanent Address "/>
-                        </p:column>
-
-                        <p:column>
-                            <h:outputText value="#{userController.user.permanentAddress}"/>
-                        </p:column>
-
-                    </p:row>
-
-                </p:panelGrid>
-
-                <p:commandButton value="Accept" update="view_user_form" onclick="PF('dialog_view_user').hiden();" actionListener="#{userController.acceptUser(userController.user.accountNumber, userController.user.userID)}" icon="ui-icon-check"/>
-                        <p:spacer width="20"/>
-                <p:commandButton value="Reject" update="view_user_form" onclick="PF('dialog_view_user').hiden();" actionListener="#{userController.rejectUser(userController.user.accountNumber, userController.user.userID)}" icon="ui-icon-closethick"/>
-
-            </center>
-
-        </h:form>
-
+         <h:form id="view_user_form" class="form-horizontal">
+              <p:messages id="messages" showDetail="true"  closable="true" />
+           <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading ">
+
+                            Work Done Details
+                        </div>
+                        <div class="panel-body pan">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div id="generalTabContent" class="tab-content">
+                                        <div id="tab-edit" class="tab-pane fade in active">
+
+                                           
+
+                                                <h4> </h4>
+                                               
+                                                <div class="form-group"><label class="col-sm-3 control-label">Name</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:outputText value="#{reportController.users.firstName}" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group"><label class="col-sm-3 control-label">Surname</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:outputText value="#{reportController.users.lastName}" class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="form-group"><label class="col-sm-3 control-label">Department</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                 <h:outputText value="#{reportController.workDone.department}" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="form-group"><label class="col-sm-3 control-label">Status</label>
+                                                    <div class="col-sm-9 controls">
+                                                        <div class="row">
+                                                            <div class="col-xs-9">
+                                                                <h:outputText value="#{reportController.workDone.status}" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <hr/>
+                                                 <p:dataTable widgetVar="customerList" id="customerList"
+                                                              value="#{reportController.workDone.workDoneItemsList}" var="customer"
+                                                                     
+                                                              rowKey="#{customer.id}"
+                                               
+						resizableColumns="true" rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">>
+
+						
+
+						
+
+						<p:column headerText="Number" >
+                                                    <h:outputText value="#{customer.id}" />
+						</p:column>
+
+                                                <p:column  headerText="Item Description"
+							>
+                                                    <h:outputText value="#{customer.item}" />
+						</p:column>
+
+                                                <p:column  headerText="Qty"
+							>
+                                                    <h:outputText value="#{customer.qty}" />
+						</p:column>
+                                                
+                                                <p:column  headerText="Unit Amount"
+							>
+                                                    <h:outputText value="#{customer.amount}" />
+						</p:column>
+
+						<p:column headerText="Total Amount"
+                                                          sortBy="#{customer.totalamount}">
+                                                    <h:outputText value="#{customer.totalamount}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="4" style="text-align:right"
+									footerText="Total Amount" />
+                                                                <p:column footerText="$#{reportController.workDone.totalRevenue}" />
+							</p:row>
+						</p:columnGroup>
+
+						
+					</p:dataTable>
+                                                <hr/>
+                                                <center>
+                                                   <p:commandButton value="Accept" update="view_user_form" onclick="PF('dialog_view_user').hiden();" actionListener="#{userController.acceptUser(userController.user.accountNumber, userController.user.userID)}" icon="ui-icon-check"/>
+                                                         <p:spacer width="20"/>
+                                                   <p:commandButton value="Reject" update="view_user_form" onclick="PF('dialog_view_user').hiden();" actionListener="#{userController.rejectUser(userController.user.accountNumber, userController.user.userID)}" icon="ui-icon-closethick"/>
+                                                </center>
+                                           
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+ </h:form>
     </ui:composition>
 </html>
 

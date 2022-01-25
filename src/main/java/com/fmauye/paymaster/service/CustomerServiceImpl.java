@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.stereotype.Service;
 
+
 /**
  *
  * @author F5437172
@@ -22,10 +23,10 @@ public class CustomerServiceImpl {
                 //Customer customer=new Customer();
                 //customer.setCustomerId(customerId);
                 
-		for (int i = 1; i < 100; i++) {
+		for (int i = 1; i < 5; i++) {
 			//Faker faker = new Faker();
                         System.out.println("Bbbbb");
-			result.add(new Customer("Tafadzwa", "Mashakada",String.valueOf(i),ThreadLocalRandom.current().nextLong(1_000_000)));
+			result.add(new Customer("Tafadzwa", "Mashakada",String.valueOf(i),ThreadLocalRandom.current().nextLong(1_000)));
 		}
 
 		return result;

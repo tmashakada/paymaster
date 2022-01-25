@@ -5,18 +5,20 @@
  */
 package com.fmauye.paymaster.entity;
 
+import com.fmauye.paymaster.dto.ItemDto;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,9 +33,10 @@ public class WorkDone implements Serializable{
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+   
     private String token;
 
+    
     @Column(nullable = false,name="created_at")
     
     private LocalDateTime createdAt;
@@ -42,33 +45,54 @@ public class WorkDone implements Serializable{
     private LocalDateTime updatedAt;
     
      
-    @ManyToOne
-    @JoinColumn(name = "submitted_by_id", referencedColumnName = "id")
-    private Users submittedBy;
+    
+    private String submittedBy;
     
     
-    @ManyToOne
-    @JoinColumn(name = "approved_by_hod_id", referencedColumnName = "id")
-    private Users approvedByHod;
+   
+    private String  username;
  
-    @ManyToOne
-    @JoinColumn(name = "approved_by_hr_id", referencedColumnName = "id")
-    private Users approvedByHr;
     
-    @Column(name="hod_status")
-    private String hodStatus;
+   
     
-    @Column(name="hr_status")
-    private String hrStatus;
+    @Column(name="status")
+    private String status;
     
-    @OneToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id")
-    private Department department;
+    
+    private String department;
+    
     @OneToMany(mappedBy = "workdone")
     private List<Comments> commentsList;
     
-    @OneToMany(mappedBy = "workdone")
+    @OneToMany(mappedBy = "workdone", fetch=FetchType.EAGER  )
     private List<WorkDoneItems> workDoneItemsList;
+
+    public String getSubmittedBy() {
+        return submittedBy;
+    }
+
+    public void setSubmittedBy(String submittedBy) {
+        this.submittedBy = submittedBy;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
+
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
     public Long getId() {
         return id;
@@ -102,53 +126,21 @@ public class WorkDone implements Serializable{
         this.updatedAt = updatedAt;
     }
 
-    public Users getSubmittedBy() {
-        return submittedBy;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSubmittedBy(Users submittedBy) {
-        this.submittedBy = submittedBy;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Users getApprovedByHod() {
-        return approvedByHod;
-    }
+    
+   
 
-    public void setApprovedByHod(Users approvedByHod) {
-        this.approvedByHod = approvedByHod;
-    }
 
-    public Users getApprovedByHr() {
-        return approvedByHr;
-    }
+    
 
-    public void setApprovedByHr(Users approvedByHr) {
-        this.approvedByHr = approvedByHr;
-    }
-
-    public String getHodStatus() {
-        return hodStatus;
-    }
-
-    public void setHodStatus(String hodStatus) {
-        this.hodStatus = hodStatus;
-    }
-
-    public String getHrStatus() {
-        return hrStatus;
-    }
-
-    public void setHrStatus(String hrStatus) {
-        this.hrStatus = hrStatus;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+    
 
     public List<Comments> getCommentsList() {
         return commentsList;
@@ -159,13 +151,30 @@ public class WorkDone implements Serializable{
     }
 
     public List<WorkDoneItems> getWorkDoneItemsList() {
+        
+        
+                     
         return workDoneItemsList;
     }
 
     public void setWorkDoneItemsList(List<WorkDoneItems> workDoneItemsList) {
         this.workDoneItemsList = workDoneItemsList;
     }
+     public String getTotalRevenue() {
+		if (this.workDoneItemsList == null) {
+			return "0";
+		}
+                BigDecimal totalRevenue = BigDecimal.ZERO;
+                for(WorkDoneItems workDoneItems:workDoneItemsList){
+                     totalRevenue = totalRevenue.add(workDoneItems.getTotalamount());
+                }
+            
+		return new DecimalFormat("###,###.###").format(totalRevenue);
+    //    return null;
+        
+	}
     
+     
     
     
 }

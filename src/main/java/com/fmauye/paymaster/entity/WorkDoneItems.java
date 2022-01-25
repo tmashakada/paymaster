@@ -45,6 +45,7 @@ public class WorkDoneItems implements Serializable{
     @JoinColumn(nullable = false,  name = "item_id",referencedColumnName = "id")
     private Item item;
     
+    
     @ManyToOne
     @JoinColumn(name = "work_done_id", referencedColumnName = "id")
     private WorkDone  workdone;
@@ -60,6 +61,7 @@ public class WorkDoneItems implements Serializable{
     public void setQty(int qty) {
         this.qty = qty;
     }
+    
 
     public BigDecimal getTotalamount() {
         return totalamount;

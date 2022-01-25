@@ -84,5 +84,22 @@ public class Item implements Serializable{
         this.amount = amount;
     }
     
-    
+    @Override
+    public boolean equals(Object other) {
+        return (other instanceof Item) && (id != null)
+            ? id.equals(((Item) other).id)
+            : (other == this);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null)
+            ? (this.getClass().hashCode() + id.hashCode())
+            : super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return String.format( description);
+    }
 }

@@ -1,16 +1,14 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/templates/admin/main.xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">  
 
-    <ui:define name="content">
-        <div class="home">
-            
-            
-            <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">
-                <p:growl showDetail="true" sticky="false"/>
+    <ui:composition template="/templates/user/main.xhtml">
+        <ui:define name="content">  
+            <p:growl showDetail="true"  sticky="false"/>
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
                 <ul class="breadcrumb breadcrumb_style">
@@ -18,7 +16,7 @@
                         <a href="#">Home</a>
                     </li>
                     <li>
-                        <a href="#"> View Pending</a>
+                        <a href="#">Report</a>
                     </li>
                 </ul>
             </div>
@@ -30,7 +28,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading ">
 
-                        PENDING  Work Done
+                            Monthly Transaction Report
                         </div>
                         <div class="panel-body pan">
                             <div class="row">
@@ -46,7 +44,7 @@
                                                             <div class="col-sm-9 controls">
                                                                 <div class="row">
                                                                     <div class="col-xs-9">
-                                                                        <p:calendar value="#{reportController.workDoneReport.fromDate}" pattern="dd-MM-yyyy" mask="true"  effect="fold" required="true"/>
+                                                                        <p:calendar value="#{reportController.report.fromDate}" pattern="dd-MM-yyyy" mask="true" r:placeholder="From" effect="fold" required="true"/>
                                                                        
                                                                     </div>
                                                                 </div>
@@ -58,7 +56,7 @@
                                                             <div class="col-sm-9 controls">
                                                                 <div class="row">
                                                                     <div class="col-xs-9">
-                                                                        <p:calendar value="#{reportController.workDoneReport.toDate}" pattern="dd-MM-yyyy" mask="true" effect="fold" required="true"/>
+                                                                        <p:calendar value="#{reportController.report.toDate}" pattern="dd-MM-yyyy" mask="true" r:placeholder="To" effect="fold" required="true"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -82,82 +80,52 @@
                                             <hr/>
 
                                             <h:form id="month_tbl">
-                                                <p:dataTable value="#{reportController.pending_report}" id="tbl" var="pending_report_tbl" 
+                                                <p:dataTable value="#{userController.user_List}" id="tbl" var="monthly_report_tbl" 
 
                                                              paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
 
 
 
-                                                    <p:column sortBy="#{pending_report_tbl.transID}">
+                                                    <p:column sortBy="#{monthly_report_tbl.transID}">
 
                                                         <f:facet name="header">TransID</f:facet>  
 
-                                                        <h:outputText value="#{pending_report_tbl.transID}"/>
+                                                        <h:outputText value="#{monthly_report_tbl.transID}"/>
 
                                                     </p:column> 
 
-                                                    <p:column sortBy="#{pending_report_tbl.createdat}">
+                                                    <p:column sortBy="#{monthly_report_tbl.accountFrom}">
 
-                                                        <f:facet name="header">Created Date</f:facet>  
+                                                        <f:facet name="header">Transaction From</f:facet>  
 
-                                                        <h:outputText value="#{pending_report_tbl.createdat}"/>
+                                                        <h:outputText value="#{monthly_report_tbl.accountFrom}"/>
 
                                                     </p:column>  
 
-                                                    <p:column sortBy="#{pending_report_tbl.updatedat}">
+                                                    <p:column sortBy="#{monthly_report_tbl.accountTo}">
 
-                                                        <f:facet name="header">UpDate Date </f:facet>  
+                                                        <f:facet name="header">Transaction To</f:facet>  
 
-                                                        <h:outputText value="#{pending_report_tbl.updatedat}"/>
-
-                                                    </p:column>
-
-                                                    <p:column sortBy="#{pending_report_tbl.hrstatus}">
-
-                                                        <f:facet name="header">Status</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.hrstatus}"/>
+                                                        <h:outputText value="#{monthly_report_tbl.accountTo}"/>
 
                                                     </p:column>
 
-                                                    <p:column >
+                                                    <p:column sortBy="#{monthly_report_tbl.amount}">
 
-                                                        <f:facet name="header">HOD Approved</f:facet>  
+                                                        <f:facet name="header">Amount</f:facet>  
 
-                                                        <h:outputText value="#{pending_report_tbl.hodapprovedby}"/>
-
-                                                    </p:column>
-                                                    <p:column >
-
-                                                        <f:facet name="header">Submitted By</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.submittedby}"/>
+                                                        <h:outputText value="#{monthly_report_tbl.amount}"/>
 
                                                     </p:column>
-                                                    
-                                                     <p:column >
 
-                                                        <f:facet name="header">Department</f:facet>  
+                                                    <p:column sortBy="#{monthly_report_tbl.dot}">
 
-                                                        <h:outputText value="#{pending_report_tbl.submittedby}"/>
+                                                        <f:facet name="header">Date Of Transaction</f:facet>  
 
-                                                    </p:column>
-                                                    
-                                                    <p:column >
-
-                                                        <f:facet name="header">Total Amount</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.totalAmount}"/>
+                                                        <h:outputText value="#{monthly_report_tbl.dot}"/>
 
                                                     </p:column>
-                                                    <p:column >
 
-                                                        <f:facet name="header">View Details</f:facet>  
-
-                                                        <h:outputText value="#{pending_report_tbl.totalAmount}"/>
-
-                                                    </p:column>
-                                                    
                                                 </p:dataTable>  
                                                 <div style="text-align: left; float: right; margin: 0px; padding: 0px;">
                                                     <h:commandLink>
@@ -199,17 +167,8 @@
                 <!-- /.col-lg-12 -->
             </div>
 
-               
-            </div>
+        </ui:define>
+    </ui:composition>        
 
-         
+</html>  
 
-
-            
-            
-            
-       </div>      
-    </ui:define>
-   
-   
-</ui:composition>

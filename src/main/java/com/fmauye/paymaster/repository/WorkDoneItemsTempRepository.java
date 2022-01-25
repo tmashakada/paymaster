@@ -4,7 +4,6 @@
  */
 package com.fmauye.paymaster.repository;
 
-import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.entity.WorkDoneItemsTemp;
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkDoneItemsTempRepository extends JpaRepository<WorkDoneItemsTemp, Long>{
   List<WorkDoneItemsTemp> findByUsernameIgnoreCase(String username);
+  Optional<WorkDoneItemsTemp> findByUsernameAndDescription(String name,String description);
+  
 }

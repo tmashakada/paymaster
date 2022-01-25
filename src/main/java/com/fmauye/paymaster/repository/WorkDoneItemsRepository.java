@@ -4,8 +4,11 @@
  */
 package com.fmauye.paymaster.repository;
 
+import com.fmauye.paymaster.entity.WorkDone;
 import com.fmauye.paymaster.entity.WorkDoneItems;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +17,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface WorkDoneItemsRepository extends JpaRepository< WorkDoneItems, Long>{
-    
+  @Query(
+  value = "SELECT * FROM WorkDoneItems u WHERE u.work_done_id = ?1", 
+  nativeQuery = true)
+  List<WorkDoneItems> findbyWorkdoneid(Long id);
 }

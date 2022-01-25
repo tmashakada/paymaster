@@ -47,7 +47,7 @@ public class PayMasterResource {
     @PostMapping("/departments")
     public Department createNewDepartment(@RequestBody Department department){
         
-        return departmentServiceImpl.createDepartment(department);
+        return departmentServiceImpl.createDepartment(department.getDescription());
     }
     
     

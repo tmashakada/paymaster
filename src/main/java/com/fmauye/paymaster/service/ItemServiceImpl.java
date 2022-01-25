@@ -55,5 +55,16 @@ public class ItemServiceImpl implements ItemService {
     	
     	return this.itemRepository.save(existingItem);
     }
+
+    @Override
+    public Item getItem(Long id) {
+      return this.itemRepository.getById(id);
+    }
+
+    @Override
+    public Item getItem(String name) {
+        Optional<Item> itemOpt=itemRepository.findItemByDescriptionIgnoreCase(name);
+        return itemOpt.get();
+    }
     
 }

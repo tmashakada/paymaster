@@ -53,18 +53,19 @@ public class LoginBean implements Serializable{
         System.out.println("Login");
          FacesContext context = FacesContext.getCurrentInstance();
       try { 
-            
+              System.out.println("Login isnnn");
              Users  user =usersService.verifyLogin(username, password);
+             
              String userRole=user.getUserRole().toString();
         
         if(userRole.equalsIgnoreCase(UserRole.ADMIN.name())){
              context.getExternalContext().getSessionMap().put("user_name", username);
              
-             return "/admin/admin?faces-redirect=true";
+             return "/admin/index?faces-redirect=true";
         }else if(userRole.equalsIgnoreCase(UserRole.HOD.name())){
                context.getExternalContext().getSessionMap().put("user_name", username);
                
-               return "/hod/hod?faces-redirect=true";
+               return "/hod/index?faces-redirect=true";
         }else{
              context.getExternalContext().getSessionMap().put("user_name", username);
               return "/user/index?faces-redirect=true";

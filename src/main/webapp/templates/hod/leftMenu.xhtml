@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
         <nav class="navbar-default navbar-side" role="navigation">
@@ -7,102 +8,34 @@
                 <ul class="sidemanu nav" id="main-menu">
 
                     <li>
-                        <a class="current" href="/admin/index.xhtml" ><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a class="current" href="/hod/index.xhtml" ><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
 
                      <li>
                         <a href="#"><i class="glyphicon glyphicon-check"></i>Work Submitted<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
                             <li>
-                                <a  href="/admin/viewpending.xhtml"><i class="fa fa-edit"></i>View Pending </a>
+                                <a  href="/hod/viewpending.xhtml"><i class="fa fa-edit"></i>View Pending </a>
+                                
                             </li>
                             <li>
-                                <a  href="/admin/viewapproved.xhtml"><i class="glyphicon glyphicon-tags"></i>View Approved </a>
+                                <a  href="/hod/viewapproved.xhtml"><i class="glyphicon glyphicon-tags"></i>View Approved </a>
                             </li>
                             <li>
-                                <a  href="/admin/viewpaid.xhtml"><i class="glyphicon glyphicon-file"></i> View Paid </a>
+                                <a  href="/hod/viewpaid.xhtml"><i class="glyphicon glyphicon-file"></i> View Paid </a>
                             </li>
                              <li>
-                                <a  href="/admin/viewrejected.xhtml"><i class="glyphicon glyphicon-file"></i>View Rejected </a>
+                                <a  href="/hod/viewrejected.xhtml"><i class="glyphicon glyphicon-file"></i>View Rejected </a>
                             </li>
 
                         </ul>
 
                     </li>
-                     <li>
-                        <a href="#"><i class="glyphicon glyphicon-list-alt"></i>Items<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a  href="/admin/createitems.xhtml"><i class="fa fa-edit"></i>Add New Item </a>
-                            </li>
-                            <li>
-                                <a  href="/Online_Banking/bank/report/dreport.xhtml"><i class="glyphicon glyphicon-tags"></i> update Item </a>
-                            </li>
-                            <li>
-                                <a  href="/admin/viewitems.xhtml"><i class="glyphicon glyphicon-file"></i> View Items </a>
-                            </li>
-                            
-
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a href="#"><i class="glyphicon glyphicon-list-alt"></i>Departments<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a  href="/Online_Banking/bank/report/mreport.xhtml"><i class="fa fa-edit"></i>Add New Department </a>
-                            </li>
-                            <li>
-                                <a  href="/Online_Banking/bank/report/dreport.xhtml"><i class="glyphicon glyphicon-tags"></i> update Department </a>
-                            </li>
-                            <li>
-                                <a  href="/Online_Banking/bank/report/treport.xhtml"><i class="glyphicon glyphicon-file"></i> View Departments </a>
-                            </li>
-                            
-
-                        </ul>
-
-                    </li>
-                    
-                     <li>
-                        <a href="#"><i class="glyphicon glyphicon-user"></i>Users<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a  href="/Online_Banking/bank/report/mreport.xhtml"><i class="fa fa-edit"></i>View Users </a>
-                            </li>
-                            <li>
-                                <a  href="/Online_Banking/bank/report/dreport.xhtml"><i class="glyphicon glyphicon-tags"></i>Update User </a>
-                            </li>
-                           
-                            
-
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a href="#"><i class="glyphicon glyphicon-user"></i>SMS<span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li>
-                                <a  href="/Online_Banking/bank/report/mreport.xhtml"><i class="fa fa-edit"></i>View Sent SMS </a>
-                            </li>
-                           
-                           
-                            
-
-                        </ul>
-
-                    </li>
+                     
+                   
                     
                     
-                    <li>
-                        <a href="/Online_Banking/bank/user/passChng.xhtml" ><i class="glyphicon glyphicon-cog"></i> Change Password</a>
-                    </li>
-                     <li>
-                        <a href="/user/index.xhtml" ><i class="glyphicon glyphicon-cog"></i> User Page</a>
-                    </li>
-                    <li>
-                        <a href="/hod/index.xhtml" ><i class="glyphicon glyphicon-cog"></i> Hod Page</a>
-                    </li>
+                  
                 </ul>
 
             </div>

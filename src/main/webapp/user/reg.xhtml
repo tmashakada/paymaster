@@ -4,6 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"  
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+     
       xmlns:p="http://primefaces.org/ui">  
 
     <ui:composition template="/templates/user/main.xhtml">
@@ -36,15 +37,35 @@
                                     <div id="generalTabContent" class="tab-content">
                                         <div id="tab-edit" class="tab-pane fade in active">
 
-                                            <h:form enctype="multipart/form-data" id="user_form" class="form-horizontal">
-
+                                            <h:form  id="user_form" class="form-horizontal">
+                                                
+                                                    <p:growl id="messages" showDetail="true" />
                                                 <h4>General Info.</h4>
 
                                                 <div class="form-group"><label class="col-sm-3 control-label">Item Description*</label>
                                                     <div class="col-sm-9 controls">
                                                         <div class="row">
-                                                            <div class="col-xs-9">
-                                                                <h:inputText value="#{userController.user.name}" r:placeholder="Name" class="form-control" required="true" requiredMessage="Please Enter Name."/>
+                                                            <div class="col-xs-12">
+                                                                <p:selectOneMenu id="advanced" value="#{workDoneItemsTempController.item}" 
+                                                                                 effect="fade" var="c" style=" width: 400px"
+                                                                  filter="true" filterMatchMode="startsWith">
+
+                                                                    <f:selectItems value="#{workDoneItemsTempController.items}" var="item" 
+                                                                                   itemLabel="#{item.description}" itemValue="#{item.description}"/>
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name"/>
+                        </f:facet>
+                        <h:outputText value="#{c}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <h:outputText value="#{workDoneItemsTempController.items.size()} items"
+                                    style="font-weight:bold;" styleClass="p-py-1 p-d-block"/>
+                    </f:facet>
+                </p:selectOneMenu>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -53,8 +74,8 @@
                                                 <div class="form-group"><label class="col-sm-3 control-label">Qty*</label>
                                                     <div class="col-sm-9 controls">
                                                         <div class="row">
-                                                            <div class="col-xs-9">
-                                                                <h:inputText value="#{userController.user.NID}" r:placeholder="National ID" class="form-control" required="true" requiredMessage="Please Enter National ID."/>
+                                                            <div class="col-xs-4">
+                                                                <h:inputText value="#{workDoneItemsTempController.qty}" r:placeholder="Quantity" class="form-control" required="true" requiredMessage="Please Quantity."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -64,28 +85,27 @@
                                                     <div class="col-sm-9 controls">
                                                         <div class="row">
                                                             <div class="col-xs-9">
-                                                               <p:commandButton update="user_form" actionListener="#{itemView.save()}" value="Add Item"></p:commandButton> 
+                                                                <p:commandButton update="user_form" actionListener="#{workDoneItemsTempController.saveTemp()}" value="Add Item" ajax="false" > </p:commandButton> 
+                                                               
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 
+                                                
 
                                                 <hr/>
 
-                                                <h4>Account Info.</h4>
+                                                <h4>Work done  Details .</h4>
 
                                                 <div class="form-group">
                                                     <div class="col-sm-12 controls">
-                                                        
-            
-
-                                        <p:dataTable widgetVar="customerList" id="customerList"
-						value="#{customerListBean.customers}" var="customer"
-						filteredValue="#{customerListBean.filteredCustomerList}"
-						rowKey="#{customer.customerId}"
-						selection="#{customerListBean.selectedCustomerList}"
+                                                        <p:dataTable widgetVar="customerList" id="customerList"
+                                                                     value="#{workDoneItemsTempController.itemDtos}" var="customer"
+                                                                     filteredValue="#{workDoneItemsTempController.filteredItemList}"
+                                                rowKey="#{customer.number}"
+                                                selection="#{workDoneItemsTempController.selectedItemList}"
 						resizableColumns="true" rows="10" paginator="true"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15">>
@@ -95,28 +115,28 @@
 						<p:column selectionMode="multiple"
 							style="width:16px;text-align:center" />
 
-						<p:column headerText="Customer ID" >
-							<h:outputText value="#{customer.customerId}" />
+						<p:column headerText="Number" >
+                                                    <h:outputText value="#{customer.number}" />
 						</p:column>
 
-						<p:column filterBy="#{customer.firstName}" headerText="Item Description"
-							filterMatchMode="contains">
-							<h:outputText value="#{customer.firstName}" />
+                                                <p:column  headerText="Item Description"
+							>
+                                                    <h:outputText value="#{customer.description}" />
 						</p:column>
 
-						<p:column filterBy="#{customer.lastName}" headerText="Qty"
-							filterMatchMode="contains">
-							<h:outputText value="#{customer.lastName}" />
+                                                <p:column  headerText="Qty"
+							>
+                                                    <h:outputText value="#{customer.qty}" />
 						</p:column>
                                                 
-                                                <p:column filterBy="#{customer.lastName}" headerText="Unit Amount"
-							filterMatchMode="contains">
-							<h:outputText value="#{customer.lastName}" />
+                                                <p:column  headerText="Unit Amount"
+							>
+                                                    <h:outputText value="#{customer.amount}" />
 						</p:column>
 
 						<p:column headerText="Total Amount"
-							sortBy="#{customer.billedRevenue}">
-							<h:outputText value="#{customer.billedRevenue}">
+                                                          sortBy="#{customer.totalamount}">
+                                                    <h:outputText value="#{customer.totalamount}">
 								<f:convertNumber type="currency" currencySymbol="$" />
 							</h:outputText>
 						</p:column>
@@ -125,7 +145,7 @@
 							<p:row>
 								<p:column colspan="5" style="text-align:right"
 									footerText="Total Amount" />
-								<p:column footerText="#{customerListBean.totalRevenue} $" />
+                                                                <p:column footerText="#{workDoneItemsTempController.totalRevenue} $" />
 							</p:row>
 						</p:columnGroup>
 
@@ -141,24 +161,27 @@
 						<p:menuitem value="View selected" update="multiCustomerDetail"
 							icon="pi pi-search" oncomplete="PF('multiCustomerDialog').show()" />
 						<p:menuitem value="Delete selected" update="customerList"
-							icon="pi pi-times" action="#{customerListBean.deleteCustomers}" />
+							icon="pi pi-times" action="#{workDoneItemsTempController.deleteCustomers}" />
 					</p:contextMenu>
 
 					<p:dialog header="Selected Customers"
 						widgetVar="multiCustomerDialog" modal="true" showEffect="fade"
 						hideEffect="fade" resizable="true" width="450">
 						<p:outputPanel id="multiCustomerDetail" style="text-align:center;">
-							<ui:repeat value="#{customerListBean.selectedCustomerList}"
+                                                    <ui:repeat value="#{workDoneItemsTempController.selectedItemList}"
 								var="customer">
 								<h:outputText
-									value="#{customer.customerId} - #{customer.firstName} - #{customer.lastName}"
+                                                                    value="#{customer.number} - #{customer.description} - #{customer.amount}"
 									style="display:block" />
-								<h:outputText value="#{customer.billedRevenue}">
+                                                                <h:outputText value="#{customer.totalamount}">
 									<f:convertNumber type="currency" currencySymbol="$" />
 								</h:outputText>
 							</ui:repeat>
 						</p:outputPanel>
 					</p:dialog>
+            
+
+                                        
                                                     </div>
                                                 </div>
 
@@ -167,7 +190,7 @@
                                                 <hr/>
 
                                                 <center>
-                                                    <p:commandButton update="user_form" actionListener="#{userController.saveUser()}" value="Finish" class="btn back-footer-blue btnwidth" ajax="false"></p:commandButton>
+                                                    <p:commandButton update="user_form" actionListener="#{workDoneItemsTempController.submitWork()}" value="Finish" class="btn back-footer-blue btnwidth" ajax="false"></p:commandButton>
                                                 </center>
 
                                             </h:form>
