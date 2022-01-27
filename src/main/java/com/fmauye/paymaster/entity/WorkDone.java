@@ -5,6 +5,7 @@
  */
 package com.fmauye.paymaster.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fmauye.paymaster.dto.ItemDto;
 import java.io.Serializable;
@@ -50,10 +51,12 @@ public class WorkDone implements Serializable{
     
     private String submittedBy;
     
-    
+    private String surname;
+    private String firstname;
    
     private String  username;
  
+    
     
    
     
@@ -64,6 +67,7 @@ public class WorkDone implements Serializable{
     private String department;
     
     @OneToMany(mappedBy = "workdone")
+     @JsonBackReference
     private List<Comments> commentsList;
     
     @OneToMany(mappedBy = "workdone", fetch=FetchType.EAGER  )
@@ -83,6 +87,22 @@ public class WorkDone implements Serializable{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     
@@ -112,6 +132,7 @@ public class WorkDone implements Serializable{
         this.token = token;
     }
 
+    
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

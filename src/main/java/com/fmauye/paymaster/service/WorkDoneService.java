@@ -43,7 +43,11 @@ public class WorkDoneService {
         return workDoneRepository.findByDepartment(department);
         
     }
-    
+     public  List<WorkDone> getAllWorkDones(){
+        
+        return workDoneRepository.findAll();
+        
+    }
     public  List<WorkDone> getAllByStatus(String status){
         
         return workDoneRepository.findByStatusIgnoreCase(status);

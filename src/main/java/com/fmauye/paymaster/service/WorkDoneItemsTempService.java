@@ -77,6 +77,8 @@ public class WorkDoneItemsTempService {
          workDone.setDepartment(useropt.get().getDepartment().getDescription());
          workDone.setSubmittedBy(useropt.get().getUserName());
          workDone.setStatus("PENDING");
+         workDone.setFirstname(useropt.get().getFirstName());
+         workDone.setSurname(useropt.get().getLastName());
          workDone.setUsername(username);
        WorkDone newworkdone=  workDoneRepository.save(workDone);
        List<WorkDoneItems> workDoneItemsList=new ArrayList<>();

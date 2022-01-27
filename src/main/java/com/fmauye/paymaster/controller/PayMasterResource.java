@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.fmauye.paymaster.dto.UserDto;
 import com.fmauye.paymaster.entity.Item;
+import com.fmauye.paymaster.entity.WorkDone;
 import com.fmauye.paymaster.service.ItemServiceImpl;
+import com.fmauye.paymaster.service.WorkDoneService;
 /**
  *
  * @author F5437172
@@ -35,7 +37,8 @@ public class PayMasterResource {
     private DepartmentServiceImpl departmentServiceImpl;
     @Autowired
     private UsersService usersService;
-    
+    @Autowired
+   private  WorkDoneService workDoneService;
     @Autowired
     private ItemServiceImpl itemServiceImpl ;
     
@@ -71,5 +74,9 @@ public class PayMasterResource {
         
           return itemServiceImpl.getAllItems();
     }
-  
+    @GetMapping("/workdones")
+    List<WorkDone> getAllWorkDone(){
+        
+          return workDoneService.getAllWorkDones();
+    }
 }

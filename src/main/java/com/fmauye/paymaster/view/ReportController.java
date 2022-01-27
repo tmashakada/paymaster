@@ -22,6 +22,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -36,6 +37,7 @@ public class ReportController {
      private SmsSentReport smsSentReport;
      private WorkDoneReport workDoneReport;
      private WorkDone workDone;
+     private WorkDone workDoneSelected;
      private List<WorkDone> userapprovedreport;
    
      private List<WorkDone> userpendingreport;
@@ -67,10 +69,20 @@ public class ReportController {
      
      private String username;
      private Users users;
+     private Users users2;
     @PostConstruct
     public void init() {
         
     }
+
+    public WorkDone getWorkDoneSelected() {
+        return workDoneSelected;
+    }
+
+    public void setWorkDoneSelected(WorkDone workDoneSelected) {
+        this.workDoneSelected = workDoneSelected;
+    }
+    
     public String getUsername() {
           FacesContext context = FacesContext.getCurrentInstance();
         username = context.getExternalContext().getSessionMap().get("user_name").toString();
@@ -108,9 +120,21 @@ public void preRenderView(ComponentSystemEvent event)  {
         this.users = users;
     }
 
+    public Users getUsers2() {
+          Users user=   usersService.getUsersByUserName(workDone.getSubmittedBy());
+       users2=user;
+        return users2;
+    }
+
+    public void setUsers2(Users users2) {
+        this.users2 = users2;
+    }
+
   
 
     public WorkDone getWorkDone() {
+        
+       // System.out.println("Sub Work Done +++++++++++++"+workDone.getSubmittedBy());
         return workDone;
     }
 
@@ -159,7 +183,8 @@ public void preRenderView(ComponentSystemEvent event)  {
           System.out.println("Pending HOD name "+username );
            System.out.println("Pending HOD Department "+users.getDepartment().getDescription() );
         List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"PENDING");
-       hodpendingreport= workdoneList;
+     
+        hodpendingreport= workdoneList;
         
         return hodpendingreport;
     }
@@ -331,5 +356,9 @@ public void preRenderView(ComponentSystemEvent event)  {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to Approved!!."));
         }
+    }
+      public void onRowSelect(SelectEvent<WorkDone> event) {
+        FacesMessage msg = new FacesMessage("WorkDone Selected", String.valueOf(event.getObject().getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
