@@ -22,10 +22,14 @@
             </div>
             <!--END BREADCRUMB PAGE-->
             <h:form id="view_report_form" class="form-horizontal">
+              
                 <p:dataTable value="#{reportController.userapprovedreport}" id="ss" var="user_tbl" 
-
-                         paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
-
+                         
+                         paginator="true" rows="14" 
+                         paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;"> 
+                      
+                        
+           
                 <p:column sortBy="#{user_tbl.id}">
 
                     <f:facet name="header">Ref Number</f:facet>  
@@ -38,8 +42,10 @@
 
                     <f:facet name="header">Created Date</f:facet>  
 
-                    <h:outputText value="#{user_tbl.createdAt}"/>
-
+                    <h:outputText value="#{user_tbl.createdAt}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                    </h:outputText>
+                      
                 </p:column>  
 
                 <p:column sortBy="#{user_tbl.updatedAt}">

@@ -41,6 +41,7 @@ public class DepartmentServiceImpl implements DepartmentService{
        Department department=new Department();
        department.setDescription(depart);
        department.setCreatedAt(LocalDateTime.now());
+      
        return this. departmentRepository.save(department);
     }
 

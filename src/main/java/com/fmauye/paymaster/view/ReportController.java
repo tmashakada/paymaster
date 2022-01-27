@@ -22,6 +22,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -36,6 +37,7 @@ public class ReportController {
      private SmsSentReport smsSentReport;
      private WorkDoneReport workDoneReport;
      private WorkDone workDone;
+     private WorkDone workDoneSelected;
      private List<WorkDone> userapprovedreport;
    
      private List<WorkDone> userpendingreport;
@@ -67,12 +69,21 @@ public class ReportController {
      
      private String username;
      private Users users;
+     private Users users2;
     @PostConstruct
     public void init() {
         
     }
 
-     public String getUsername() {
+    public WorkDone getWorkDoneSelected() {
+        return workDoneSelected;
+    }
+
+    public void setWorkDoneSelected(WorkDone workDoneSelected) {
+        this.workDoneSelected = workDoneSelected;
+    }
+    
+    public String getUsername() {
           FacesContext context = FacesContext.getCurrentInstance();
         username = context.getExternalContext().getSessionMap().get("user_name").toString();
         return username;
@@ -81,22 +92,25 @@ public class ReportController {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-     public void preRenderView(ComponentSystemEvent event)  {
+public void preRenderView(ComponentSystemEvent event)  {
           FacesContext context = FacesContext.getCurrentInstance();
       String   usernames = context.getExternalContext().getSessionMap().get("user_name").toString();
-          System.out.println(" preRenderView User Name nnnnnnJTesttesttttttt"+ usernames);
+      username=usernames;
+          System.out.println("REOprt preRenderView User Name nnnnnnJTesttesttttttt"+ usernames);
         if (FacesContext.getCurrentInstance().isPostback()) {
             return;
         }
         readFromDatabase();
     }
+     
+    
+     
       private void readFromDatabase() {
          
              //use _strID to read and set property
              System.out.println("User Name nnnnnnJJJjjjKKkkKKkKkK"+ username);
       }
-       public Users getUsers() {
+     public Users getUsers() {
        Users user=   usersService.getUsersByUserName(username);
        users=user;
         return users;
@@ -106,9 +120,21 @@ public class ReportController {
         this.users = users;
     }
 
+    public Users getUsers2() {
+          Users user=   usersService.getUsersByUserName(workDone.getSubmittedBy());
+       users2=user;
+        return users2;
+    }
+
+    public void setUsers2(Users users2) {
+        this.users2 = users2;
+    }
+
   
 
     public WorkDone getWorkDone() {
+        
+       // System.out.println("Sub Work Done +++++++++++++"+workDone.getSubmittedBy());
         return workDone;
     }
 
@@ -146,16 +172,19 @@ public class ReportController {
     }
 
     public List<WorkDone> getUserpendingreport() {
-        System.out.println("Pending user name "+username);
+        System.out.println("HHH Pending user name "+username);
        List<WorkDone> workdoneList= workDoneService.getAllByUserNameAndStatus(username, "PENDING");
+        System.out.println("HHH Pending user name "+username);
        userpendingreport= workdoneList;
         return userpendingreport;
     }
 
     public List<WorkDone> getHodpendingreport() {
-          System.out.println("Pending HOD name "+username);
+          System.out.println("Pending HOD name "+username );
+           System.out.println("Pending HOD Department "+users.getDepartment().getDescription() );
         List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"PENDING");
-       hodpendingreport= workdoneList;
+     
+        hodpendingreport= workdoneList;
         
         return hodpendingreport;
     }
@@ -327,5 +356,9 @@ public class ReportController {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to Approved!!."));
         }
+    }
+      public void onRowSelect(SelectEvent<WorkDone> event) {
+        FacesMessage msg = new FacesMessage("WorkDone Selected", String.valueOf(event.getObject().getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }

@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Named
 @RequestScoped
 public class WorkDoneItemsTempController {
+    
     
     @Autowired
     private  WorkDoneItemsTempService workDoneItemsTempService;
@@ -45,10 +48,25 @@ public class WorkDoneItemsTempController {
      private List<ItemDto> selectedItemList;
     private int qty;
     private String username;
+    
+     @ManagedProperty("#{loginBean}")
+    private LoginBean loginBean; // +setter
     @PostConstruct
     public void init() {
-        
+    
     }
+
+    public void preRenderView(ComponentSystemEvent event)  {
+          FacesContext context = FacesContext.getCurrentInstance();
+      String   usernames = context.getExternalContext().getSessionMap().get("user_name").toString();
+      username=usernames;
+          System.out.println(" WorkDoneItemsTempController preRenderView User Name nnnnnnJTesttesttttttt"+ usernames);
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
+       // readFromDatabase();
+    }
+     
 
     public String getUsername() {
          FacesContext context = FacesContext.getCurrentInstance();
@@ -120,6 +138,8 @@ public class WorkDoneItemsTempController {
     }
 
     public List<ItemDto> getItemDtos() {
+        //  System.out.println(" getLoginBean username "+   loginBean.getUsername());
+       
         System.out.println("Get All Items username "+username);
        List<WorkDoneItemsTemp> tempList=  workDoneItemsTempService.getAll(username);
           System.out.println("Templist "+tempList.size());
@@ -162,10 +182,10 @@ public class WorkDoneItemsTempController {
         temp.setQty(qty);
         temp.setUsername(username);
         workDoneItemsTempService.create(temp);
-    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successful Added Item "+item));
-        }catch(Exception ex){
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",  ex.getMessage()+item));
-    }
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successful Added Item "+item));
+             }catch(Exception ex){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR",  ex.getMessage()+item));
+             }
         
         }
      public void  submitWork(){

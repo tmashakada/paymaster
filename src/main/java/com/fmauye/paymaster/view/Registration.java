@@ -273,16 +273,19 @@ public class Registration implements Serializable{
        
   }
      public String  save() {
-         try{
+     
+       boolean isValid=   emailValidator.isValidMobile(mobilenumber);
+       if(isValid){
          RegistrationRequest request =new  RegistrationRequest() ;
        //  request.setDepartment(department);
          request.setEcnumber(ecnumber);
          request.setEmail(email);
          request.setFirstName(firstName);
          request.setLastName(lastName);
-         String validNumber=  emailValidator.validaNumber(mobilenumber);
-         validNumber="+263"+validNumber;
-         request.setMobilenumber(validNumber);
+         //String validNumber=  emailValidator.validaNumber(mobilenumber);
+    
+          mobilenumber="+"+mobilenumber;
+         request.setMobilenumber(mobilenumber);
          request.setPassword(password);
          request.setUsername(username);
       
@@ -306,11 +309,11 @@ public class Registration implements Serializable{
         }
         
          
-         }catch(IllegalStateException ex){
-             System.out.println(ex.getMessage());
+         }else{
+          
           FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", ex.getMessage()));
-         }
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Mobile Number %s, Not valid"+ mobilenumber));
+       }
      
          
        // FacesContext.getCurrentInstance().addMessage(null,

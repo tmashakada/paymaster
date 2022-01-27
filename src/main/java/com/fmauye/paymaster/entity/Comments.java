@@ -5,6 +5,7 @@
  */
 package com.fmauye.paymaster.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -33,6 +34,7 @@ public class Comments implements Serializable{
     
     @ManyToOne
     @JoinColumn(name = "work_done_id", referencedColumnName = "id")
+     @JsonBackReference
     private WorkDone  workdone;
     
     @Column(nullable = false)

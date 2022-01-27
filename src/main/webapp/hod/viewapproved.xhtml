@@ -26,11 +26,14 @@
             </div>
             <!--END BREADCRUMB PAGE-->
             <h:form id="view_report_form" class="form-horizontal">
+                   <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
                 <p:dataTable value="#{reportController.hodapprovedreport}" id="ss" var="user_tbl" 
-
+                             selection="#{reportController.workDoneSelected}" rowKey="#{user_tbl.id}"
                          paginator="true" rows="14" paginatorPosition="bottom" style="width:auto; margin-top: 8px; margin-bottom: 15px; font-size: 12px;">
 
-                <p:column sortBy="#{user_tbl.id}">
+                  <p:ajax event="rowSelect" listener="#{reportController.onRowSelect}" update=":view_report_form:msgs"/>
+                    
+                 <p:column sortBy="#{user_tbl.id}">
 
                     <f:facet name="header">Ref Number</f:facet>  
 
@@ -66,7 +69,7 @@
               
                 <p:column style="width:5%">
                     
-                    <p:commandButton process="@this" update=":view_user_form" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="View Approved">  
+                    <p:commandButton process="@this" update=":view_report_form:msgs" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="View Approved">  
 
                         <f:setPropertyActionListener value="#{user_tbl}" target="#{reportController.workDone}"/>  
 
