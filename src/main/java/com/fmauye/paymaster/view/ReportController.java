@@ -71,8 +71,7 @@ public class ReportController {
     public void init() {
         
     }
-
-     public String getUsername() {
+    public String getUsername() {
           FacesContext context = FacesContext.getCurrentInstance();
         username = context.getExternalContext().getSessionMap().get("user_name").toString();
         return username;
@@ -81,22 +80,25 @@ public class ReportController {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-     public void preRenderView(ComponentSystemEvent event)  {
+public void preRenderView(ComponentSystemEvent event)  {
           FacesContext context = FacesContext.getCurrentInstance();
       String   usernames = context.getExternalContext().getSessionMap().get("user_name").toString();
-          System.out.println(" preRenderView User Name nnnnnnJTesttesttttttt"+ usernames);
+      username=usernames;
+          System.out.println("REOprt preRenderView User Name nnnnnnJTesttesttttttt"+ usernames);
         if (FacesContext.getCurrentInstance().isPostback()) {
             return;
         }
         readFromDatabase();
     }
+     
+    
+     
       private void readFromDatabase() {
          
              //use _strID to read and set property
              System.out.println("User Name nnnnnnJJJjjjKKkkKKkKkK"+ username);
       }
-       public Users getUsers() {
+     public Users getUsers() {
        Users user=   usersService.getUsersByUserName(username);
        users=user;
         return users;
@@ -146,14 +148,16 @@ public class ReportController {
     }
 
     public List<WorkDone> getUserpendingreport() {
-        System.out.println("Pending user name "+username);
+        System.out.println("HHH Pending user name "+username);
        List<WorkDone> workdoneList= workDoneService.getAllByUserNameAndStatus(username, "PENDING");
+        System.out.println("HHH Pending user name "+username);
        userpendingreport= workdoneList;
         return userpendingreport;
     }
 
     public List<WorkDone> getHodpendingreport() {
-          System.out.println("Pending HOD name "+username);
+          System.out.println("Pending HOD name "+username );
+           System.out.println("Pending HOD Department "+users.getDepartment().getDescription() );
         List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"PENDING");
        hodpendingreport= workdoneList;
         

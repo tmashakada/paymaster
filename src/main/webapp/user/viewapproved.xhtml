@@ -38,8 +38,10 @@
 
                     <f:facet name="header">Created Date</f:facet>  
 
-                    <h:outputText value="#{user_tbl.createdAt}"/>
-
+                    <h:outputText value="#{user_tbl.createdAt}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                    </h:outputText>
+                      
                 </p:column>  
 
                 <p:column sortBy="#{user_tbl.updatedAt}">

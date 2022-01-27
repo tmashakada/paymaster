@@ -59,15 +59,15 @@ public class LoginBean implements Serializable{
              String userRole=user.getUserRole().toString();
         
         if(userRole.equalsIgnoreCase(UserRole.ADMIN.name())){
-             context.getExternalContext().getSessionMap().put("user_name", username);
+             context.getExternalContext().getSessionMap().put("user_name",  user.getUserName());
              
              return "/admin/index?faces-redirect=true";
         }else if(userRole.equalsIgnoreCase(UserRole.HOD.name())){
-               context.getExternalContext().getSessionMap().put("user_name", username);
+               context.getExternalContext().getSessionMap().put("user_name", user.getUserName());
                
                return "/hod/index?faces-redirect=true";
         }else{
-             context.getExternalContext().getSessionMap().put("user_name", username);
+             context.getExternalContext().getSessionMap().put("user_name",user.getUserName());
               return "/user/index?faces-redirect=true";
         }
         
@@ -88,6 +88,7 @@ public class LoginBean implements Serializable{
     public String getUseName() {
         FacesContext context = FacesContext.getCurrentInstance();
         username = context.getExternalContext().getSessionMap().get("user_name").toString();
+        System.out.println("Login Bean username  "+username);
         return username;
     }
 

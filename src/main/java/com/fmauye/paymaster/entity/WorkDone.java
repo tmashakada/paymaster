@@ -5,6 +5,7 @@
  */
 package com.fmauye.paymaster.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fmauye.paymaster.dto.ItemDto;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -38,10 +39,11 @@ public class WorkDone implements Serializable{
 
     
     @Column(nullable = false,name="created_at")
-    
+     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
     
     @Column(name="updated_at")
+     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     
      

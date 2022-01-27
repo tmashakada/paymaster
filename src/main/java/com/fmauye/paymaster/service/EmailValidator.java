@@ -30,6 +30,24 @@ public class EmailValidator   {
         
         
     }
+    public   boolean isValidMobile(String mobile ){
+       boolean isMobileValid=false;
+     
+       boolean isNumeric = mobile.chars().allMatch( Character::isDigit );
+       if(isNumeric){
+           
+          if( mobile.startsWith("263")|| mobile.startsWith("27")){
+              
+             if( mobile.length()==11|| mobile.length()==12){
+                 isMobileValid=true;
+             }
+          }
+           
+           
+       }
+       return isMobileValid;
+   }
+    
     public String  validaNumber(String number){
          if( number.substring(0, 1).equalsIgnoreCase("0")  ){
           number = number.substring(1);
