@@ -71,14 +71,20 @@ public class RegistrationService {
              users.setPassword(request.getPassword());
              users.setUserName(request.getUsername());
              users.setUserRole(UserRole.USER);
-               System.out.println("Register4 ");
+             System.out.println("Register4 ");
             
             String optForNewUser = usersService.signUpUser(users);
-            
+            System.out.println("<<"+optForNewUser+">>");
+            if(!optForNewUser.equalsIgnoreCase("Already Exists")){
             System.out.println("Register5 ");
             String msg =  optForNewUser+" "+"is Your verification Code from PayMaster";
-          String result= sentOpt(msg,request.getMobilenumber());
-        return result;
+            
+             String result= sentOpt(msg,request.getMobilenumber());
+             return result;
+            }else{
+                 return optForNewUser;
+            }
+       
           
         
     }

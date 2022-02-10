@@ -19,13 +19,15 @@ public class EmailValidator   {
     private final String EMAIL_PATTERN = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
 
  
-    public String test(String email) {
+    public boolean isEmailValid(String email) {
           boolean isValidEmail = email.matches(EMAIL_PATTERN);
             if (isValidEmail) {
-                return email;
+                return true;
             }else{
-               throw new IllegalStateException(String.format("Email %s, not valid", email)); 
+               //throw new IllegalStateException(String.format("Email %s, not valid", email)); 
+                 return false;
             }
+      
          
         
         

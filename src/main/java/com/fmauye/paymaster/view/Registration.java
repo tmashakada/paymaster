@@ -275,8 +275,16 @@ public class Registration implements Serializable{
      public String  save() {
      
        boolean isValid=   emailValidator.isValidMobile(mobilenumber);
+  
        if(isValid){
-         RegistrationRequest request =new  RegistrationRequest() ;
+           
+         boolean isValidEmail=   emailValidator.isEmailValid(email);
+         
+          if(isValidEmail){
+             
+             boolean isNumeric = ecnumber.chars().allMatch( Character::isDigit );
+           if(isNumeric){
+            RegistrationRequest request =new  RegistrationRequest() ;
        //  request.setDepartment(department);
          request.setEcnumber(ecnumber);
          request.setEmail(email);
@@ -289,11 +297,11 @@ public class Registration implements Serializable{
          request.setPassword(password);
          request.setUsername(username);
       
-         String validemail=  emailValidator.test(email);
-         request.setEmail(validemail);
+  
+         request.setEmail(email);
        
         System.out.println("ecnumber "+ecnumber);
-        System.out.println("email "+validemail);
+        System.out.println("email "+email);
         System.out.println("firstName "+firstName);
         Long  department=checkString (departmentid);
          request.setDepartmentId(department);
@@ -303,16 +311,33 @@ public class Registration implements Serializable{
              return "/singupverification?faces-redirect=true";
         }else{
              System.out.println(response);
+             if(response.equalsIgnoreCase("Already Exists")){
+                response="User with email "+email+ " Already exists"; 
+             }
           FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", response));
          
         }
         
+        } else{
+          
+          FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Enumber "+ ecnumber+ "  should be numeric "));
+       }
+        
+        
+        
+          } else{
+          
+          FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Email Addresss is  Not valid  "+email));
+       }
+        
          
          }else{
           
           FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Mobile Number %s, Not valid"+ mobilenumber));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Mobile Number is  Not valid   "+ mobilenumber));
        }
      
          

@@ -169,7 +169,8 @@ public class UsersService {
                 return optstr;
 
             }
-            throw new IllegalStateException(String.format("User with email %s already exists!", user.getEmail()));
+           // throw new IllegalStateException(String.format("User with email %s already exists!", user.getEmail()));
+             return "Already Exists";
         }
 
         
