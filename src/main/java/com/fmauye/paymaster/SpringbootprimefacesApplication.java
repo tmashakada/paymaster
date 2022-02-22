@@ -1,11 +1,8 @@
 package com.fmauye.paymaster;
 
-import com.sun.faces.config.ConfigureListener;
-import lombok.extern.slf4j.Slf4j;
 import java.util.Arrays;
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
-import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -45,5 +42,7 @@ public class SpringbootprimefacesApplication {
       srb.setLoadOnStartup(1);
       return srb;
   }
+  
+ 
 
 }

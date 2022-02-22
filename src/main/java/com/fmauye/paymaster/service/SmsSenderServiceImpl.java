@@ -7,7 +7,9 @@ package com.fmauye.paymaster.service;
 
 
 import com.fmauye.paymaster.config.TwilioConfiguration;
+import com.fmauye.paymaster.entity.SmsSent;
 import com.fmauye.paymaster.model.SmsRequest;
+import com.fmauye.paymaster.repository.SmsSentRepository;
 import com.twilio.exception.ApiException;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +17,19 @@ import org.springframework.stereotype.Service;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
+import java.time.LocalDateTime;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author "Tafadzwa"
- */
+
 @Service
 public class SmsSenderServiceImpl implements SmsSenderService{
       @Autowired
      private  TwilioConfiguration twilioConfiguration;
      private static final Logger LOGGER = LoggerFactory.getLogger(SmsSenderServiceImpl.class);
-  
+     @Autowired
+     private  SmsSentRepository smsSentRepository;
    
 
 
@@ -41,6 +43,26 @@ public class SmsSenderServiceImpl implements SmsSenderService{
             LOGGER.info("Send sms {}", smsRequest);
           return "Success";
     }
+
+    @Override
+    public void saveSendSms(String to, String message, String username, Long referenceno) {
+         SmsSent  smsSent=new  SmsSent();
+         smsSent.setCreatedAt(LocalDateTime.now());
+         smsSent.setMessage(message);
+         smsSent.setToMobile(to);
+         smsSent.setProcessname("WORKDONE");
+         smsSent.setTouser(username);
+         smsSent.setReferenceNo(referenceno);
+         smsSentRepository.save( smsSent);
+                        
+    }
+
+    @Override
+    public List<SmsSent> getAllSmsSent() {
+        return smsSentRepository.findAll();
+    }
+    
+    
     
     
 }

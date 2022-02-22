@@ -9,6 +9,7 @@ import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.entity.WorkDone;
 import com.fmauye.paymaster.entity.WorkDoneItems;
 import com.fmauye.paymaster.model.SmsRequest;
+import com.fmauye.paymaster.repository.SmsSentRepository;
 import com.fmauye.paymaster.service.ItemServiceImpl;
 import com.fmauye.paymaster.service.SmsSenderServiceImpl;
 import com.fmauye.paymaster.service.UsersService;
@@ -66,6 +67,8 @@ public class ReportController {
      UsersService usersService;
      @Autowired
      SmsSenderServiceImpl  smsSenderServiceImpl;
+     @Autowired
+     SmsSentRepository    smsSentRepository;
      
      private String username;
      private Users users;
@@ -323,10 +326,13 @@ public void preRenderView(ComponentSystemEvent event)  {
             
             Users user=   usersService.getUsersByUserName(subtmittedby);
             SmsRequest smsRequest=new SmsRequest();
-            smsRequest.setMessage("Your Submitted Work Referrence Number "+id+ " Successfully Approved " );
+            smsRequest.setMessage("Your Submitted Work Referrence Number "+id+ " Successfully Approved By HOD" );
             smsRequest.setPhoneNumber(user.getMobileNumber());
-            smsSenderServiceImpl.sendSms(smsRequest);
-            
+            String  result= smsSenderServiceImpl.sendSms(smsRequest);
+              if(result.equalsIgnoreCase("Success")){
+               smsSenderServiceImpl.saveSendSms(user.getMobileNumber(),   smsRequest.getMessage(),user.getUserName(), id);
+              
+          }
           //  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successful Added Item "+item));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successfully Approved!!."));
 
@@ -344,9 +350,13 @@ public void preRenderView(ComponentSystemEvent event)  {
             
             Users user=   usersService.getUsersByUserName(subtmittedby);
             SmsRequest smsRequest=new SmsRequest();
-            smsRequest.setMessage("Your Submitted Work Referrence Number "+id+ " Successfully Approved By HR for PayMents " );
+            smsRequest.setMessage("Your Submitted Work Referrence Number "+id+ " Successfully Approved By HR for Payments " );
             smsRequest.setPhoneNumber(user.getMobileNumber());
-            smsSenderServiceImpl.sendSms(smsRequest);
+            String  result=   smsSenderServiceImpl.sendSms(smsRequest);
+            if(result.equalsIgnoreCase("Success")){
+               smsSenderServiceImpl.saveSendSms(user.getMobileNumber(),   smsRequest.getMessage(),user.getUserName(), id);
+              
+           }
             
           //  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successful Added Item "+item));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successfully Approved!!."));

@@ -66,8 +66,8 @@
 
                
               
-                <p:column style="width:5%">
-                    
+                <p:column style="width:10%">
+                     <f:facet name="header">click Here To view</f:facet> 
                     <p:commandButton process="@this" update=":view_user_form" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="Confermation">  
 
                         <f:setPropertyActionListener value="#{user_tbl}" target="#{reportController.workDone}"/>  

@@ -5,6 +5,7 @@
  */
 package com.fmauye.paymaster.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -27,18 +28,33 @@ public class SmsSent implements Serializable{
 
    
     @Column(nullable = false,name="created_at")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
+    
     @Column(nullable = false)
     private String message;
 
    
+
     @Column(nullable = false,name="to_mobile")
     private String toMobile;
     
+    @Column(name="reference_no")
+    private Long     referenceNo;
+ 
+        
     @Column(nullable = false)
     private String touser;
+
+    public Long getReferenceNo() {
+        return referenceNo;
+    }
+
+    public void setReferenceNo(Long referenceNo) {
+        this.referenceNo = referenceNo;
+    }
     
-    @Column(nullable = false)
+
     private String processname;
 
     public Long getId() {

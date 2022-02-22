@@ -9,7 +9,6 @@ import com.fmauye.paymaster.entity.ConfirmationToken;
 import com.fmauye.paymaster.entity.Department;
 import com.fmauye.paymaster.entity.Users;
 import com.fmauye.paymaster.enums.UserRole;
-import com.fmauye.paymaster.exception.UsernameNotFoundException;
 import com.fmauye.paymaster.model.RegistrationRequest;
 import com.fmauye.paymaster.model.SmsRequest;
 import com.fmauye.paymaster.repository.DepartmentRepository;

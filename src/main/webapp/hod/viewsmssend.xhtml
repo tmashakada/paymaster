@@ -6,7 +6,7 @@
       xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">  
 
-    <ui:composition template="/templates/admin/main.xhtml">
+    <ui:composition template="/templates/hod/main.xhtml">
         <ui:define name="content"> 
             <div id="homepage-intro" class="introduction #{app.darkMode ? 'introduction-dark' : ''}">  
             <div class="home">
@@ -22,8 +22,6 @@
             <!--END BREADCRUMB PAGE-->
 
             <h:form id="trans_all_report">
-                
-               
 
                 <p:dataTable value="#{smsSentReport.smsSentReportAll}" id="all_tbl" var="all_trans_tbl" 
 
@@ -79,7 +77,7 @@
                     </p:column>
 
                 </p:dataTable> 
-                 <div style="text-align: left; float: right; margin: 0px; padding: 0px;">
+               <div style="text-align: left; float: right; margin: 0px; padding: 0px;">
                     <p:panel header="Download and Print Report">
                     <h:commandLink>
                         <p:graphicImage id="xls2" value="/images/print/xls.png" width="30"/> 
@@ -89,7 +87,7 @@
 
                     <h:commandLink>
                         <p:graphicImage id="pdf2" value="/images/print/pdf.jpg" width="30"/>
-                        <p:dataExporter type="pdf" target="all_tbl" fileName="smssent_report"/>
+                        <p:dataExporter type="pdf" target="all_tbl" fileName="transaction_report"/>
                         <p:tooltip for="pdf2" value="Download PDF Format" showEffect="clip" hideEffect="explode"/>
                     </h:commandLink>
 

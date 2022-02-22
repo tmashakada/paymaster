@@ -14,9 +14,7 @@
             <!--BEGIN BREADCRUMB PAGE-->
             <div>
                 <ul class="breadcrumb breadcrumb_style">
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
+                  
                     <li>
                         <a href="#"> View Approved</a>
                     </li>
@@ -64,8 +62,8 @@
 
                
               
-                <p:column style="width:5%">
-                    
+                <p:column style="width:10%">
+                     <f:facet name="header">Click To Approve/Reject</f:facet>  
                     <p:commandButton process="@this" update=":view_user_form" onclick="PF('dialog_view_user').show();" icon="ui-icon-pencil" title="View Approved">  
 
                         <f:setPropertyActionListener value="#{user_tbl}" target="#{reportController.workDone}"/>  

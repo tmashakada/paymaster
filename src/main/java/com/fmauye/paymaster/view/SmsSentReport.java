@@ -4,34 +4,43 @@
  */
 package com.fmauye.paymaster.view;
 
+import com.fmauye.paymaster.entity.SmsSent;
+import com.fmauye.paymaster.entity.WorkDone;
+import com.fmauye.paymaster.repository.SmsSentRepository;
+import com.fmauye.paymaster.service.SmsSenderServiceImpl;
 import java.util.Date;
+import java.util.List;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author F5437172
  */
+@Named
+@ViewScoped
 public class SmsSentReport {
-    private Date fromDate;
-    private Date toDate;
-
+   
+    private List<SmsSent> smsSentReportAll;
+     @Autowired
+     private SmsSenderServiceImpl   smsSenderServiceImpl;
     public SmsSentReport() {
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public List<SmsSent> getSmsSentReportAll() {
+        smsSentReportAll= smsSenderServiceImpl.getAllSmsSent();
+        
+        return smsSentReportAll;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setSmsSentReportAll(List<SmsSent> smsSentReportAll) {
+        this.smsSentReportAll = smsSentReportAll;
     }
 
-    public Date getToDate() {
-        return toDate;
-    }
+   
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
+   
     
     
 }
