@@ -15,6 +15,7 @@ import com.fmauye.paymaster.service.SmsSenderServiceImpl;
 import com.fmauye.paymaster.service.UsersService;
 import com.fmauye.paymaster.service.WorkDoneItemsService;
 import com.fmauye.paymaster.service.WorkDoneService;
+import com.twilio.exception.ApiException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -71,6 +72,8 @@ public class ReportController {
      SmsSentRepository    smsSentRepository;
      
      private String username;
+     private String userdepartment;
+     private String userrole;
      private Users users;
      private Users users2;
     @PostConstruct
@@ -95,11 +98,33 @@ public class ReportController {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getUserdepartment() {
+        return userdepartment;
+    }
+
+    public void setUserdepartment(String userdepartment) {
+        this.userdepartment = userdepartment;
+    }
+
+    public String getUserrole() {
+        return userrole;
+    }
+
+    public void setUserrole(String userrole) {
+        this.userrole = userrole;
+    }
+    
+    
 public void preRenderView(ComponentSystemEvent event)  {
           FacesContext context = FacesContext.getCurrentInstance();
-      String   usernames = context.getExternalContext().getSessionMap().get("user_name").toString();
-      username=usernames;
-          System.out.println("REOprt preRenderView User Name nnnnnnJTesttesttttttt"+ usernames);
+          String   usernames = context.getExternalContext().getSessionMap().get("user_name").toString();
+         username=usernames;
+          String   userdepart = context.getExternalContext().getSessionMap().get("user_department").toString();
+          userdepartment=userdepart;
+          String   userroles = context.getExternalContext().getSessionMap().get("user_role").toString();
+          userrole=userroles;
+          System.out.println("PreRenderView User Name "+ usernames +" "+username+" "+ userdepartment+" "+userrole);
         if (FacesContext.getCurrentInstance().isPostback()) {
             return;
         }
@@ -111,7 +136,7 @@ public void preRenderView(ComponentSystemEvent event)  {
       private void readFromDatabase() {
          
              //use _strID to read and set property
-             System.out.println("User Name nnnnnnJJJjjjKKkkKKkKkK"+ username);
+             System.out.println("User readFromDatabase "+ username);
       }
      public Users getUsers() {
        Users user=   usersService.getUsersByUserName(username);
@@ -184,8 +209,8 @@ public void preRenderView(ComponentSystemEvent event)  {
 
     public List<WorkDone> getHodpendingreport() {
           System.out.println("Pending HOD name "+username );
-           System.out.println("Pending HOD Department "+users.getDepartment().getDescription() );
-        List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"PENDING");
+          System.out.println("Pending HOD Department "+userdepartment );
+        List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(userdepartment,"PENDING");
      
         hodpendingreport= workdoneList;
         
@@ -199,7 +224,7 @@ public void preRenderView(ComponentSystemEvent event)  {
 
     public List<WorkDone> getHodpaidreport() {
           System.out.println("PAID HOD name "+username);
-          List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"PAID");
+          List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(userdepartment,"PAID");
           hodpaidreport= workdoneList;
         
         return hodpaidreport;
@@ -210,7 +235,7 @@ public void preRenderView(ComponentSystemEvent event)  {
     }
 
     public List<WorkDone> getHodapprovedreport() {
-         List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"APPROVED");
+         List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(userdepartment,"APPROVED");
          hodapprovedreport= workdoneList;
         return hodapprovedreport;
     }
@@ -221,7 +246,7 @@ public void preRenderView(ComponentSystemEvent event)  {
 
     public List<WorkDone> getHodrejectedreport() {
           System.out.println("REJECTED HOD name "+username);
-          List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(users.getDepartment().getDescription(),"REJECTED");
+          List<WorkDone> workdoneList= workDoneService.getAllByDepartmentAndStatus(userdepartment,"REJECTED");
          hodrejectedreport= workdoneList;
         return hodrejectedreport;
     }
@@ -328,13 +353,21 @@ public void preRenderView(ComponentSystemEvent event)  {
             SmsRequest smsRequest=new SmsRequest();
             smsRequest.setMessage("Your Submitted Work Referrence Number "+id+ " Successfully Approved By HOD" );
             smsRequest.setPhoneNumber(user.getMobileNumber());
+            try{
             String  result= smsSenderServiceImpl.sendSms(smsRequest);
               if(result.equalsIgnoreCase("Success")){
                smsSenderServiceImpl.saveSendSms(user.getMobileNumber(),   smsRequest.getMessage(),user.getUserName(), id);
-              
-          }
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successfully Approved AND Message Send to!!."+user.getMobileNumber()));
+               }else{
+                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to Approved!!."));
+              }
           //  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successful Added Item "+item));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successfully Approved!!."));
+            }catch(ApiException ex){
+                System.out.println("ERROR Sending msg "+ex.getMessage());
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Approved Succesful but Message Not Send to "+user.getMobileNumber()+" "+"Something Wrong With SMS GateWAY  "+ex.getMessage()));
+                   
+                   
+            }
 
             
 
@@ -352,14 +385,16 @@ public void preRenderView(ComponentSystemEvent event)  {
             SmsRequest smsRequest=new SmsRequest();
             smsRequest.setMessage("Your Submitted Work Referrence Number "+id+ " Successfully Approved By HR for Payments " );
             smsRequest.setPhoneNumber(user.getMobileNumber());
+            try{
             String  result=   smsSenderServiceImpl.sendSms(smsRequest);
             if(result.equalsIgnoreCase("Success")){
                smsSenderServiceImpl.saveSendSms(user.getMobileNumber(),   smsRequest.getMessage(),user.getUserName(), id);
-              
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", smsRequest.getMessage()+" "+"Message Successful Sent To"+" "+user.getMobileNumber()));
            }
-            
-          //  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successful Added Item "+item));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Successfully Approved!!."));
+            }catch(ApiException ex){
+                 System.out.println("ERROR Sending msg "+ex.getMessage());
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Approved Succesful but Message Not Send to "+user.getMobileNumber()+" "+"Something Wrong With SMS GateWAY  "+ex.getMessage())); 
+            }
 
             
 

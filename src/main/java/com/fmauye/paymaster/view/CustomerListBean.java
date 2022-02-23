@@ -12,6 +12,7 @@ import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+
 @Named
 @ViewScoped
 public class CustomerListBean implements Serializable {

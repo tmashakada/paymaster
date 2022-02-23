@@ -60,16 +60,23 @@ public class LoginBean implements Serializable{
         
         if(userRole.equalsIgnoreCase(UserRole.ADMIN.name())){
              context.getExternalContext().getSessionMap().put("user_name",  user.getUserName());
-             
+             context.getExternalContext().getSessionMap().put("user_department",  user.getDepartment().getDescription());
+             context.getExternalContext().getSessionMap().put("user_role",  user.getUserRole().ADMIN.name());
              return "/admin/index?faces-redirect=true";
         }else if(userRole.equalsIgnoreCase(UserRole.HOD.name())){
-               context.getExternalContext().getSessionMap().put("user_name", user.getUserName());
+              context.getExternalContext().getSessionMap().put("user_name",  user.getUserName());
+             context.getExternalContext().getSessionMap().put("user_department",  user.getDepartment().getDescription());
+             context.getExternalContext().getSessionMap().put("user_role",  user.getUserRole().HOD.name());
                
                return "/hod/index?faces-redirect=true";
         }else{
              context.getExternalContext().getSessionMap().put("user_name",user.getUserName());
+              context.getExternalContext().getSessionMap().put("user_department",  user.getDepartment().getDescription());
+             context.getExternalContext().getSessionMap().put("user_role",  user.getUserRole().USER.name());
               return "/user/index?faces-redirect=true";
         }
+        
+        
         
         
       }catch(UsernameNotFoundException e){

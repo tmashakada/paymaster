@@ -48,6 +48,7 @@ public class LineChartBean {
       y.setMax(700);
       y.setLabel("Millions");
 
+      
       Axis x = lineModel.getAxis(AxisType.X);
       x.setMin(0);
       x.setMax(7);
